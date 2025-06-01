@@ -1,0 +1,56 @@
+SYOS STOCK REPORT
+Generated: 2025-05-31 18:54:58
+================================================================================
+
+================================================================================
+                              Current Stock Report
+================================================================================
+Generated: 2025-05-31 18:51:02
+Report Type: STOCK_REPORT
+
+IN_STORE Items:
+--------------------------------------------------------------------------------
+Code            Name                             Quantity   Purchase Date     Expiry Date
+--------------------------------------------------------------------------------
+FLOUR001        All Purpose Flour 1kg                 250      2025-05-31      2026-05-31
+RICE001         Basmati Rice 5kg                      200      2025-05-31      2026-05-31
+BUTTER001       Butter 250g                            60      2025-05-31      2025-06-30
+CHEESE001       Cheddar Cheese 200g                    40      2025-05-31      2025-07-15
+MILK001         Fresh Milk 1L                         100      2025-05-31      2025-06-07
+RICE002         Jasmine Rice 5kg                      150      2025-05-31      2026-05-31
+YOGURT001       Plain Yogurt 500g                      50      2025-05-31      2025-06-21
+SUGAR001        White Sugar 1kg                       300      2025-05-31      2027-05-31
+
+ON_SHELF Items:
+--------------------------------------------------------------------------------
+Code            Name                             Quantity   Purchase Date     Expiry Date
+--------------------------------------------------------------------------------
+BANANA001       Bananas 1kg                            50      2025-05-31      2025-06-02
+PEPPER001       Black Pepper 100g                      25      2025-05-31      2026-05-31
+OIL001          Cooking Oil 1L                        120      2025-05-31      2025-11-27
+EGGS001         Eggs (Dozen)                           80      2025-05-31      2025-06-14
+TOMATO001       Fresh Tomatoes 1kg                     40      2025-05-31      2025-06-04
+SALT001         Table Salt 1kg                         30      2025-05-31      2027-05-31
+BREAD001        White Bread                           150      2025-05-31      2025-06-03
+BREAD002        Whole Wheat Bread                     100      2025-05-31      2025-06-03
+
+
+Stock Summary:
+Total Item Types: 16
+Total Quantity: 1745
+
+Items by State:
+  IN_STORE: 8
+  ON_SHELF: 8
+
+--------------------------------------------------------------------------------
+End of Report
+
+INVENTORY STATISTICS
+----------------------------------------
+Total Item Types: 16
+Total Quantity: 1745
+Total Value: $9610.00
+Expired Items: 0
+Low Stock Items: 4
+Expiring Soon: 5
