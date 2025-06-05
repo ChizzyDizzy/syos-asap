@@ -80,33 +80,44 @@ public class BillGateway extends OracleDatabaseGateway<Bill> {
 
             long billId;
             try (PreparedStatement stmt = connection.prepareStatement(billSql, Statement.RETURN_GENERATED_KEYS)) {
-                setInsertParameters(stmt, bill);
+                stmt.setTimestamp(1, Timestamp.valueOf(bill.getBillDate()));
+                stmt.setBigDecimal(2, bill.getTotalAmount().getValue());
+                stmt.setBigDecimal(3, bill.getDiscount().getValue());
+                stmt.setBigDecimal(4, bill.getCashTendered().getValue());
+                stmt.setBigDecimal(5, bill.getChange().getValue());
+                stmt.setString(6, bill.getTransactionType().name());
+
                 stmt.executeUpdate();
 
                 try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         billId = generatedKeys.getLong(1);
                     } else {
-                        throw new SQLException("Failed to get bill ID");
+                        throw new SQLException("Failed to get generated bill ID");
                     }
                 }
             }
 
-            // Save bill items
-            String itemSql = "INSERT INTO bill_items (bill_number, item_code, quantity, total_price) VALUES (?, ?, ?, ?)";
+            // Save bill items - FIXED to include unit_price
+            String itemSql = "INSERT INTO bill_items (bill_number, item_code, quantity, unit_price, total_price) " +
+                    "VALUES (?, ?, ?, ?, ?)";
+
             try (PreparedStatement stmt = connection.prepareStatement(itemSql)) {
-                for (BillItem item : bill.getItems()) {
+                for (BillItem billItem : bill.getItems()) {
                     stmt.setLong(1, billId);
-                    stmt.setString(2, item.getItem().getCode().getValue());
-                    stmt.setInt(3, item.getQuantity().getValue());
-                    stmt.setBigDecimal(4, item.getTotalPrice().getValue());
+                    stmt.setString(2, billItem.getItem().getCode().getValue());
+                    stmt.setInt(3, billItem.getQuantity().getValue());
+
+                    // Add unit price - this was missing!
+                    stmt.setBigDecimal(4, billItem.getItem().getPrice().getValue());
+                    stmt.setBigDecimal(5, billItem.getTotalPrice().getValue());
+
                     stmt.addBatch();
                 }
                 stmt.executeBatch();
             }
         });
     }
-
     public List<Bill> findByDate(LocalDate date) {
         return connectionManager.executeWithConnection(connection -> {
             String sql = "SELECT * FROM bills WHERE DATE(bill_date) = ?";

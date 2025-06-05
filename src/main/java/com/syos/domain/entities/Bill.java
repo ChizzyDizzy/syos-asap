@@ -1,5 +1,7 @@
 package com.syos.domain.entities;
 
+import com.syos.domain.interfaces.BillInterface;
+import com.syos.domain.interfaces.BillVisitor;
 import com.syos.domain.valueobjects.*;
 import com.syos.domain.exceptions.*;
 import java.time.LocalDateTime;

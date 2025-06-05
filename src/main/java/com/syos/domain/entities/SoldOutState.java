@@ -1,6 +1,7 @@
 package com.syos.domain.entities;
 
 import com.syos.domain.exceptions.InvalidStateTransitionException;
+import com.syos.domain.interfaces.ItemState;
 
 public class SoldOutState implements ItemState {
     @Override

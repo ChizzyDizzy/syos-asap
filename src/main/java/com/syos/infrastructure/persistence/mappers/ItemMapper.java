@@ -1,10 +1,10 @@
 package com.syos.infrastructure.persistence.mappers;
 
 import com.syos.domain.entities.*;
-import com.syos.domain.valueobjects.*;
+import com.syos.domain.interfaces.ItemState;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.math.BigDecimal;
 
 public class ItemMapper {
 

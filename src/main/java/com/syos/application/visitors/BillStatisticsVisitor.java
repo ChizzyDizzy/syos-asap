@@ -1,6 +1,7 @@
 package com.syos.application.visitors;
 
 import com.syos.domain.entities.*;
+import com.syos.domain.interfaces.BillVisitor;
 import com.syos.domain.valueobjects.Money;
 import java.math.BigDecimal;
 import java.util.*;

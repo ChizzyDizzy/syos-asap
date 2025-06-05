@@ -29,4 +29,18 @@ public class SalesPresenter {
     public void showError(String message) {
         System.err.println("❌ Error: " + message);
     }
+
+
+    public void showWarning(String message) {
+        System.out.println("⚠️  " + message);
+    }
+
+    public void showSuccess(String message) {
+        System.out.println("✅ " + message);
+    }
+
+    public void showInfo(String message) {
+        System.out.println("ℹ️  " + message);
+    }
 }
+

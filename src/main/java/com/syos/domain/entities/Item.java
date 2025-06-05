@@ -1,5 +1,6 @@
 package com.syos.domain.entities;
 
+import com.syos.domain.interfaces.ItemState;
 import com.syos.domain.valueobjects.*;
 import com.syos.domain.exceptions.*;
 import java.time.LocalDate;

@@ -1,6 +1,8 @@
 package com.syos.domain.decorators;
 
 import com.syos.domain.entities.*;
+import com.syos.domain.interfaces.BillInterface;
+import com.syos.domain.interfaces.BillVisitor;
 import com.syos.domain.valueobjects.*;
 import java.time.LocalDateTime;
 import java.util.List;

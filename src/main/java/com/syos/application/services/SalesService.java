@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SalesService {
     private final BillGateway billGateway;
@@ -71,18 +72,46 @@ public class SalesService {
                 throw new EmptySaleException("Cannot complete sale with no items");
             }
 
-            return new Bill.Builder()
+            // Create the bill with all items
+            Bill.Builder billBuilder = new Bill.Builder()
                     .withBillNumber(generateBillNumber())
                     .withDate(LocalDateTime.now())
-                    .withDiscount(BigDecimal.ZERO) // Can be enhanced later
+                    .withDiscount(BigDecimal.ZERO)
                     .withCashTendered(cashTendered)
-                    .withTransactionType(TransactionType.IN_STORE)
-                    .build();
-        }
+                    .withTransactionType(TransactionType.IN_STORE);
 
+            // Add all items to the bill
+            for (BillItem item : items) {
+                billBuilder.addBillItem(item);
+            }
+
+            return billBuilder.build();
+        }
         private int generateBillNumber() {
             // In production, this would query the database for the next number
             return (int) (System.currentTimeMillis() % 1000000);
         }
     }
+
+    /**
+     * Check if an item is available for sale
+     */
+    public boolean isItemAvailable(String itemCode) {
+        Item item = itemGateway.findByCode(itemCode);
+        return item != null &&
+                "ON_SHELF".equals(item.getState().getStateName()) &&
+                item.getQuantity().getValue() > 0;
+    }
+
+    /**
+     * Get all items available for sale (on shelf with stock)
+     */
+    public List<Item> getAvailableItems() {
+        return itemGateway.findAll().stream()
+                .filter(item -> "ON_SHELF".equals(item.getState().getStateName()))
+                .filter(item -> item.getQuantity().getValue() > 0)
+                .collect(Collectors.toList());
+    }
+
+
 }
