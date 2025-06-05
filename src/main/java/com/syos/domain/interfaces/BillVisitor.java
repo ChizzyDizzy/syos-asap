@@ -7,7 +7,7 @@ import com.syos.domain.entities.Bill;
  * Supports visiting different types of bills
  */
 public interface BillVisitor {
-    // Visit regular bill
+    // Visit a regular bill
     void visit(Bill bill);
 
     // Default implementation for visiting any BillInterface
