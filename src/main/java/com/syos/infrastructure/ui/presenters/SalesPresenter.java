@@ -42,5 +42,11 @@ public class SalesPresenter {
     public void showInfo(String message) {
         System.out.println("ℹ️  " + message);
     }
+
+    public void showHeader(String title) {
+        System.out.println("\n" + "=".repeat(50));
+        System.out.println(title);
+        System.out.println("=".repeat(50));
+    }
 }
 

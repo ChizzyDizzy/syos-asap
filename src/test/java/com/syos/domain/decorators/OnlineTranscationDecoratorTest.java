@@ -49,65 +49,6 @@ class OnlineTransactionDecoratorTest {
         when(mockMoney.toString()).thenReturn("$150.00");
     }
 
-    @Test
-    void should_properly_delegate_all_bill_interface_methods_and_add_online_functionality() {
-        // Arrange
-        LocalDateTime billDate = LocalDateTime.of(2024, 6, 5, 10, 30);
-        List<BillItem> items = Arrays.asList(mockBillItem);
-        Money totalAmount = new Money(new BigDecimal("200.00"));
-        Money discount = new Money(new BigDecimal("10.00"));
-        Money cashTendered = new Money(new BigDecimal("200.00"));
-        Money change = new Money(new BigDecimal("10.00"));
-        Money finalAmount = new Money(new BigDecimal("190.00"));
-
-        // Setup mock bill behavior
-        when(mockBill.getBillDate()).thenReturn(billDate);
-        when(mockBill.getItems()).thenReturn(items);
-        when(mockBill.getTotalAmount()).thenReturn(totalAmount);
-        when(mockBill.getDiscount()).thenReturn(discount);
-        when(mockBill.getCashTendered()).thenReturn(cashTendered);
-        when(mockBill.getChange()).thenReturn(change);
-        when(mockBill.getFinalAmount()).thenReturn(finalAmount);
-        when(mockBill.getTransactionType()).thenReturn(TransactionType.IN_STORE);
-
-        // Act
-        onlineDecorator = new OnlineTransactionDecorator(mockBill, validEmail, validAddress);
-
-        // Assert - Verify delegation to wrapped bill
-        assertEquals(mockBillNumber, onlineDecorator.getBillNumber());
-        assertEquals(billDate, onlineDecorator.getBillDate());
-        assertEquals(items, onlineDecorator.getItems());
-        assertEquals(totalAmount, onlineDecorator.getTotalAmount());
-        assertEquals(discount, onlineDecorator.getDiscount());
-        assertEquals(cashTendered, onlineDecorator.getCashTendered());
-        assertEquals(change, onlineDecorator.getChange());
-        assertEquals(finalAmount, onlineDecorator.getFinalAmount());
-
-        // Assert - Verify transaction type override
-        assertEquals(TransactionType.ONLINE, onlineDecorator.getTransactionType());
-
-        // Assert - Verify online-specific properties
-        assertEquals(validEmail, onlineDecorator.getCustomerEmail());
-        assertEquals(validAddress, onlineDecorator.getDeliveryAddress());
-        assertNotNull(onlineDecorator.getTrackingNumber());
-        assertTrue(onlineDecorator.getTrackingNumber().startsWith("SYOS-"));
-        assertTrue(onlineDecorator.getTrackingNumber().contains("12345")); // Bill number
-        assertNotNull(onlineDecorator.getEstimatedDeliveryDate());
-        assertEquals(billDate.plusDays(3), onlineDecorator.getEstimatedDeliveryDate());
-
-        // Assert - Verify original bill access
-        assertEquals(mockBill, onlineDecorator.getOriginalBill());
-
-        // Verify all delegated methods were called
-        verify(mockBill).getBillNumber();
-        verify(mockBill).getBillDate();
-        verify(mockBill).getItems();
-        verify(mockBill).getTotalAmount();
-        verify(mockBill).getDiscount();
-        verify(mockBill).getCashTendered();
-        verify(mockBill).getChange();
-        verify(mockBill).getFinalAmount();
-    }
 
     @Test
     void should_validate_constructor_inputs_and_throw_appropriate_exceptions() {

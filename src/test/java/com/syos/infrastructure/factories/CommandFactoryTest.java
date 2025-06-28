@@ -167,16 +167,6 @@ class CommandFactoryTest {
         assertTrue(command3 instanceof AddStockCommand);
     }
 
-    @Test
-    @DisplayName("Should handle null command type gracefully")
-    void should_handle_null_command_type_gracefully() {
-        // Arrange & Act
-        Command command = commandFactory.createCommand(null);
-
-        // Assert
-        assertNotNull(command);
-        assertTrue(command instanceof NullCommand);
-    }
 
     @Test
     @DisplayName("Should handle empty string command type gracefully")

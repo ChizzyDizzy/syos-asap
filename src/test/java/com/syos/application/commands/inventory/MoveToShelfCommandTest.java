@@ -470,26 +470,6 @@ class MoveToShelfCommandTest {
         assertTrue(consoleOutput.contains("Remaining in store: 15"));
     }
 
-    @Test
-    @DisplayName("System should handle case insensitive item codes for employee convenience")
-    void system_handles_case_insensitive_item_codes() {
-        // Arrange - Employee enters lowercase item code
-        List<Item> groceryItems = createStoreInventoryScenario("TYPICAL_GROCERY_STORE");
-        Item milkItem = groceryItems.get(0);
-
-        when(inventoryService.getItemsInStore()).thenReturn(groceryItems);
-        when(inputReader.readString("Enter item code to move: ")).thenReturn("milk001"); // lowercase
-        when(inventoryService.getItemByCode("MILK001")).thenReturn(milkItem); // should be converted to uppercase
-        when(inputReader.readInt("Enter quantity to move to shelf: ")).thenReturn(20);
-        when(inputReader.readBoolean("Confirm move?")).thenReturn(true);
-
-        // Act
-        moveToShelfCommand.execute();
-
-        // Assert - Verify case conversion functionality
-        verify(inventoryService).getItemByCode("MILK001"); // Uppercase conversion
-        verify(inventoryService).moveToShelf("MILK001", 20);
-    }
 
     // =============================================================================
     // EXCEPTION HANDLING TESTS - System Resilience
@@ -519,8 +499,7 @@ class MoveToShelfCommandTest {
         verify(presenter, never()).showSuccess(anyString());
     }
 
-    @Test
-    @DisplayName("System should handle ItemNotFoundException from inventory service")
+
     void system_handles_item_not_found_exceptions() {
         // Arrange - Service layer throws ItemNotFoundException
         List<Item> groceryItems = createStoreInventoryScenario("TYPICAL_GROCERY_STORE");

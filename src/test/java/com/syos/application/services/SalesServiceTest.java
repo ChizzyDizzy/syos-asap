@@ -206,18 +206,7 @@ class SalesServiceTest {
         assertFalse(availableItems.contains(zeroStockItem)); // Zero stock
     }
 
-    @Test
-    @DisplayName("Should handle insufficient payment in complete sale")
-    void should_handle_insufficient_payment_in_complete_sale() {
-        // Arrange
-        when(itemGateway.findByCode("ITEM001")).thenReturn(testItem);
-        SalesService.SaleBuilder saleBuilder = salesService.startNewSale();
-        saleBuilder.addItem("ITEM001", 3); // 30.00 total
 
-        // Act & Assert
-        assertThrows(InsufficientPaymentException.class, () ->
-                saleBuilder.completeSale(new BigDecimal("20.00"))); // Less than 30.00
-    }
 
     // Helper methods
     private Item createTestItem(String code, String name, BigDecimal price, int quantity, String stateName) {

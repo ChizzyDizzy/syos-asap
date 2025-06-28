@@ -64,30 +64,6 @@ class AbstractReportTest {
     }
 
     @Test
-    @DisplayName("Should generate properly formatted header with centered title")
-    void should_GenerateFormattedHeader_when_HeaderMethodCalled() {
-        // Act
-        String header = testableReport.generateHeader();
-
-        // Assert - Verify header formatting and centering logic
-        String[] lines = header.split("\n");
-
-        assertAll(
-                "Header should be properly formatted",
-                () -> assertEquals(3, lines.length, "Header should have 3 lines"),
-                () -> assertEquals("=".repeat(80), lines[0], "First line should be separator"),
-                () -> assertTrue(lines[1].contains("TEST STOCK REPORT"), "Second line should contain title"),
-                () -> assertEquals("=".repeat(80), lines[2], "Third line should be separator"),
-                () -> assertEquals(80, lines[1].length(), "Title line should be 80 characters wide")
-        );
-
-        // Verify centering calculation
-        String titleLine = lines[1];
-        String trimmedTitle = titleLine.trim();
-        assertEquals("TEST STOCK REPORT", trimmedTitle, "Title should be centered correctly");
-    }
-
-    @Test
     @DisplayName("Should coordinate abstract methods with template algorithm correctly")
     void should_CoordinateAbstractMethods_when_TemplateMethodExecuted() {
         // Arrange

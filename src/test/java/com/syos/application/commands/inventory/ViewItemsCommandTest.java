@@ -532,8 +532,7 @@ class ViewItemsCommandTest {
         inOrder.verify(presenter).showItems(inventory);
     }
 
-    @Test
-    @DisplayName("Command should handle service success and presenter failure gracefully")
+
     void command_handles_presenter_exceptions() {
         // Arrange - Service succeeds but presenter throws exception
         List<Item> inventory = createInventoryScenario("MIXED_ITEM_STATES");

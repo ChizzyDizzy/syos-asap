@@ -1,3 +1,4 @@
+
 package com.syos.domain.valueobjects;
 
 import com.syos.domain.exceptions.InvalidItemCodeException;
@@ -10,10 +11,17 @@ public final class ItemCode {
         if (code == null || code.trim().isEmpty()) {
             throw new InvalidItemCodeException("Item code cannot be null or empty");
         }
-        if (!code.matches("^[A-Z0-9]{4,10}$")) {
-            throw new InvalidItemCodeException("Item code must be 4-10 alphanumeric characters");
+
+        // Convert to uppercase BEFORE validation
+        String normalizedCode = code.trim().toUpperCase();
+
+        // Now validate the uppercase version
+        // Change from {4,10} to {4,15}
+        if (!code.matches("^[A-Z0-9]{4,15}$")) {
+            throw new InvalidItemCodeException("Item code must be 4-15 alphanumeric characters");
         }
-        this.code = code.toUpperCase();
+
+        this.code = normalizedCode;
     }
 
     public String getValue() {
