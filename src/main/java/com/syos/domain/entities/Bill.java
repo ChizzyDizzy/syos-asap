@@ -113,6 +113,7 @@ public class Bill implements BillInterface {
             }
         }
 
+
         private Money calculateTotal() {
             return items.stream()
                     .map(BillItem::getTotalPrice)

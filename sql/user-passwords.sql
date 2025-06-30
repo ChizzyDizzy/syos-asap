@@ -21,7 +21,7 @@ WHERE username = 'manager1';
 -- Verify the updates
 SELECT username, LEFT(password_hash, 20) as password_hash_preview, role FROM users;
 
--- Alternative: If you want to use simpler passwords for testing
+
 -- Password for all users: password123
 -- UPDATE users SET password_hash = '482c811da5d5b4bc6d497ffa98491e38'
 -- WHERE username IN ('admin', 'cashier1', 'manager1');

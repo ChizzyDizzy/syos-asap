@@ -11,6 +11,8 @@ import java.util.List;
  * Decorator pattern implementation for online transactions
  * Adds online-specific functionality to a Bill
  */
+
+// single responsibility
 public class OnlineTransactionDecorator implements BillInterface {
     private final Bill bill;
     private final String customerEmail;

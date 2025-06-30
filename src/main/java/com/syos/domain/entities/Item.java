@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.math.BigDecimal;
 import java.time.temporal.ChronoUnit;
 
-
+//thread safe design - builder pattern
 public class Item {
     private final ItemCode code;
     private final String name;
@@ -66,7 +66,7 @@ public class Item {
             validateItem();
             return new Item(this);
         }
-
+    //validation construction
         private void validateItem() {
             if (code == null || name == null || price == null) {
                 throw new InvalidItemException("Item must have code, name, and price");
@@ -133,11 +133,7 @@ public class Item {
 
 
 
-    // Add this method to the Item class
-    /**
-     * Calculate days until expiry
-     * @return days until expiry, or Long.MAX_VALUE if no expiry date
-     */
+    // optional parameters
     public long daysUntilExpiry() {
         if (expiryDate == null) {
             return Long.MAX_VALUE; // No expiry
