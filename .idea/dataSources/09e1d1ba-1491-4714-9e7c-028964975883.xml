@@ -92,8 +92,62 @@
 |root||root|localhost|XA_RECOVER_ADMIN|G
 |root||root|localhost|grant option|G
 performance_schema|schema||mysql.session|localhost|SELECT|G
+syos_db|schema||root|localhost|ALTER|G
+syos_db|schema||root|localhost|ALTER ROUTINE|G
+syos_db|schema||root|localhost|CREATE|G
+syos_db|schema||root|localhost|CREATE ROUTINE|G
+syos_db|schema||root|localhost|CREATE TEMPORARY TABLES|G
+syos_db|schema||root|localhost|CREATE VIEW|G
+syos_db|schema||root|localhost|DELETE|G
+syos_db|schema||root|localhost|DROP|G
+syos_db|schema||root|localhost|EVENT|G
+syos_db|schema||root|localhost|EXECUTE|G
+syos_db|schema||root|localhost|INDEX|G
+syos_db|schema||root|localhost|INSERT|G
+syos_db|schema||root|localhost|LOCK TABLES|G
+syos_db|schema||root|localhost|REFERENCES|G
+syos_db|schema||root|localhost|SELECT|G
+syos_db|schema||root|localhost|SHOW VIEW|G
+syos_db|schema||root|localhost|TRIGGER|G
+syos_db|schema||root|localhost|UPDATE|G
+syos_new|schema||root|localhost|ALTER|G
+syos_new|schema||root|localhost|ALTER ROUTINE|G
+syos_new|schema||root|localhost|CREATE|G
+syos_new|schema||root|localhost|CREATE ROUTINE|G
+syos_new|schema||root|localhost|CREATE TEMPORARY TABLES|G
+syos_new|schema||root|localhost|CREATE VIEW|G
+syos_new|schema||root|localhost|DELETE|G
+syos_new|schema||root|localhost|DROP|G
+syos_new|schema||root|localhost|EVENT|G
+syos_new|schema||root|localhost|EXECUTE|G
+syos_new|schema||root|localhost|INDEX|G
+syos_new|schema||root|localhost|INSERT|G
+syos_new|schema||root|localhost|LOCK TABLES|G
+syos_new|schema||root|localhost|REFERENCES|G
+syos_new|schema||root|localhost|SELECT|G
+syos_new|schema||root|localhost|SHOW VIEW|G
+syos_new|schema||root|localhost|TRIGGER|G
+syos_new|schema||root|localhost|UPDATE|G
+syos_pos|schema||syos_user|localhost|ALTER|G
+syos_pos|schema||syos_user|localhost|ALTER ROUTINE|G
+syos_pos|schema||syos_user|localhost|CREATE|G
+syos_pos|schema||syos_user|localhost|CREATE ROUTINE|G
+syos_pos|schema||syos_user|localhost|CREATE TEMPORARY TABLES|G
+syos_pos|schema||syos_user|localhost|CREATE VIEW|G
+syos_pos|schema||syos_user|localhost|DELETE|G
+syos_pos|schema||syos_user|localhost|DROP|G
+syos_pos|schema||syos_user|localhost|EVENT|G
+syos_pos|schema||syos_user|localhost|EXECUTE|G
+syos_pos|schema||syos_user|localhost|INDEX|G
+syos_pos|schema||syos_user|localhost|INSERT|G
+syos_pos|schema||syos_user|localhost|LOCK TABLES|G
+syos_pos|schema||syos_user|localhost|REFERENCES|G
+syos_pos|schema||syos_user|localhost|SELECT|G
+syos_pos|schema||syos_user|localhost|SHOW VIEW|G
+syos_pos|schema||syos_user|localhost|TRIGGER|G
+syos_pos|schema||syos_user|localhost|UPDATE|G
 sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
-      <ServerVersion>8.0.42</ServerVersion>
+      <ServerVersion>8.0.43</ServerVersion>
     </root>
     <collation id="2" parent="1" name="armscii8_bin">
       <Charset>armscii8</Charset>
@@ -1003,453 +1057,831 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <schema id="290" parent="1" name="performance_schema">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <schema id="291" parent="1" name="pos_schema">
-      <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
-      <LastIntrospectionLevel>3</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2025-05-28.04:02:22</LastIntrospectionLocalTimestamp>
+    <schema id="291" parent="1" name="syos">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="292" parent="1" name="syos_db">
       <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
       <LastIntrospectionLevel>3</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2025-05-28.05:30:27</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-10-12.13:32:11</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <schema id="293" parent="1" name="sys">
+    <schema id="293" parent="1" name="syos_new">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <user id="294" parent="1" name="mysql.infoschema">
+    <schema id="294" parent="1" name="syos_web">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="295" parent="1" name="sys">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <user id="296" parent="1" name="mysql.infoschema">
       <CanLogin>0</CanLogin>
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
-    <user id="295" parent="1" name="mysql.session">
+    <user id="297" parent="1" name="mysql.session">
       <CanLogin>0</CanLogin>
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
-    <user id="296" parent="1" name="mysql.sys">
+    <user id="298" parent="1" name="mysql.sys">
       <CanLogin>0</CanLogin>
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
-    <user id="297" parent="1" name="root">
+    <user id="299" parent="1" name="root">
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
-    <table id="298" parent="292" name="audit_log">
+    <user id="300" parent="1" name="syos_user">
+      <Host>localhost</Host>
+      <Plugin>caching_sha2_password</Plugin>
+    </user>
+    <routine id="301" parent="292" name="fn_generate_bill_number">
+      <Definer>root@localhost</Definer>
+      <DetailsLevel>3</DetailsLevel>
+      <Deterministic>1</Deterministic>
+      <RoutineKind>function</RoutineKind>
+      <SourceTextLength>228</SourceTextLength>
+    </routine>
+    <routine id="302" parent="292" name="sp_expire_items">
+      <Definer>root@localhost</Definer>
+      <DetailsLevel>3</DetailsLevel>
+      <RoutineKind>procedure</RoutineKind>
+      <SourceTextLength>770</SourceTextLength>
+    </routine>
+    <routine id="303" parent="292" name="sp_move_to_shelf">
+      <Definer>root@localhost</Definer>
+      <DetailsLevel>3</DetailsLevel>
+      <RoutineKind>procedure</RoutineKind>
+      <SourceTextLength>886</SourceTextLength>
+    </routine>
+    <routine id="304" parent="292" name="sp_record_sale">
+      <Definer>root@localhost</Definer>
+      <DetailsLevel>3</DetailsLevel>
+      <RoutineKind>procedure</RoutineKind>
+      <SourceTextLength>944</SourceTextLength>
+    </routine>
+    <table id="305" parent="292" name="audit_log">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="299" parent="292" name="bill_items">
+    <table id="306" parent="292" name="bill_items">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="300" parent="292" name="bills">
+    <table id="307" parent="292" name="bills">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="301" parent="292" name="items">
+    <table id="308" parent="292" name="items">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="302" parent="292" name="stock_movements">
+    <table id="309" parent="292" name="stock_movements">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="303" parent="292" name="users">
+    <table id="310" parent="292" name="users">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <column id="304" parent="298" name="id">
-      <AutoIncrement>1</AutoIncrement>
+    <view id="311" parent="292" name="daily_sales_summary">
+      <Definer>root@localhost</Definer>
+      <DetailsLevel>3</DetailsLevel>
+      <SourceTextLength>480</SourceTextLength>
+    </view>
+    <view id="312" parent="292" name="expiring_soon">
+      <Definer>root@localhost</Definer>
+      <DetailsLevel>3</DetailsLevel>
+      <SourceTextLength>619</SourceTextLength>
+    </view>
+    <view id="313" parent="292" name="inventory_value">
+      <Definer>root@localhost</Definer>
+      <DetailsLevel>3</DetailsLevel>
+      <SourceTextLength>523</SourceTextLength>
+    </view>
+    <view id="314" parent="292" name="items_on_shelf">
+      <Definer>root@localhost</Definer>
+      <DetailsLevel>3</DetailsLevel>
+      <SourceTextLength>413</SourceTextLength>
+    </view>
+    <view id="315" parent="292" name="low_stock_items">
+      <Definer>root@localhost</Definer>
+      <DetailsLevel>3</DetailsLevel>
+      <SourceTextLength>768</SourceTextLength>
+    </view>
+    <argument id="316" parent="301">
+      <ArgumentDirection>R</ArgumentDirection>
+      <StoredType>varchar(50)|0s</StoredType>
+    </argument>
+    <argument id="317" parent="303" name="p_item_code">
+      <Position>1</Position>
+      <StoredType>varchar(20)|0s</StoredType>
+    </argument>
+    <argument id="318" parent="303" name="p_quantity">
+      <Position>2</Position>
+      <StoredType>int|0s</StoredType>
+    </argument>
+    <argument id="319" parent="303" name="p_user_id">
+      <Position>3</Position>
+      <StoredType>bigint|0s</StoredType>
+    </argument>
+    <argument id="320" parent="304" name="p_bill_id">
+      <Position>1</Position>
+      <StoredType>bigint|0s</StoredType>
+    </argument>
+    <argument id="321" parent="304" name="p_item_code">
+      <Position>2</Position>
+      <StoredType>varchar(20)|0s</StoredType>
+    </argument>
+    <argument id="322" parent="304" name="p_quantity">
+      <Position>3</Position>
+      <StoredType>int|0s</StoredType>
+    </argument>
+    <column id="323" parent="305" name="id">
+      <AutoIncrement>4</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>bigint|0s</StoredType>
     </column>
-    <column id="305" parent="298" name="table_name">
+    <column id="324" parent="305" name="table_name">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>varchar(50)|0s</StoredType>
     </column>
-    <column id="306" parent="298" name="record_id">
+    <column id="325" parent="305" name="record_id">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StoredType>varchar(50)|0s</StoredType>
     </column>
-    <column id="307" parent="298" name="action">
+    <column id="326" parent="305" name="action">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StoredType>enum(&apos;INSERT&apos;, &apos;UPDATE&apos;, &apos;DELETE&apos;)|0e</StoredType>
     </column>
-    <column id="308" parent="298" name="user_id">
+    <column id="327" parent="305" name="user_id">
       <Position>5</Position>
       <StoredType>bigint|0s</StoredType>
     </column>
-    <column id="309" parent="298" name="action_timestamp">
+    <column id="328" parent="305" name="action_timestamp">
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>6</Position>
       <StoredType>timestamp|0s</StoredType>
     </column>
-    <column id="310" parent="298" name="old_values">
+    <column id="329" parent="305" name="old_values">
       <Position>7</Position>
       <StoredType>json|0s</StoredType>
     </column>
-    <column id="311" parent="298" name="new_values">
+    <column id="330" parent="305" name="new_values">
       <Position>8</Position>
       <StoredType>json|0s</StoredType>
     </column>
-    <foreign-key id="312" parent="298" name="audit_log_ibfk_1">
+    <foreign-key id="331" parent="305" name="audit_log_ibfk_1">
       <ColNames>user_id</ColNames>
+      <OnDelete>set-null</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>users</RefTableName>
     </foreign-key>
-    <index id="313" parent="298" name="PRIMARY">
+    <index id="332" parent="305" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="314" parent="298" name="user_id">
+    <index id="333" parent="305" name="idx_table_record">
+      <ColNames>table_name
+record_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="334" parent="305" name="user_id">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="315" parent="298" name="idx_audit_timestamp">
+    <index id="335" parent="305" name="idx_audit_timestamp">
       <ColNames>action_timestamp</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="316" parent="298" name="PRIMARY">
+    <key id="336" parent="305" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="317" parent="299" name="id">
-      <AutoIncrement>1</AutoIncrement>
+    <column id="337" parent="306" name="id">
+      <AutoIncrement>10</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>bigint|0s</StoredType>
     </column>
-    <column id="318" parent="299" name="bill_number">
-      <NotNull>1</NotNull>
+    <column id="338" parent="306" name="bill_id">
       <Position>2</Position>
       <StoredType>bigint|0s</StoredType>
     </column>
-    <column id="319" parent="299" name="item_code">
-      <NotNull>1</NotNull>
+    <column id="339" parent="306" name="bill_number">
       <Position>3</Position>
-      <StoredType>varchar(20)|0s</StoredType>
+      <StoredType>varchar(50)|0s</StoredType>
     </column>
-    <column id="320" parent="299" name="quantity">
+    <column id="340" parent="306" name="item_code">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StoredType>int|0s</StoredType>
-    </column>
-    <column id="321" parent="299" name="unit_price">
-      <NotNull>1</NotNull>
-      <Position>5</Position>
-      <StoredType>decimal(10,2 digit)|0s</StoredType>
-    </column>
-    <column id="322" parent="299" name="total_price">
-      <NotNull>1</NotNull>
-      <Position>6</Position>
-      <StoredType>decimal(10,2 digit)|0s</StoredType>
-    </column>
-    <foreign-key id="323" parent="299" name="bill_items_ibfk_1">
-      <ColNames>bill_number</ColNames>
-      <RefColNames>bill_number</RefColNames>
-      <RefTableName>bills</RefTableName>
-    </foreign-key>
-    <foreign-key id="324" parent="299" name="bill_items_ibfk_2">
-      <ColNames>item_code</ColNames>
-      <RefColNames>code</RefColNames>
-      <RefTableName>items</RefTableName>
-    </foreign-key>
-    <index id="325" parent="299" name="PRIMARY">
-      <ColNames>id</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <index id="326" parent="299" name="idx_bill_number">
-      <ColNames>bill_number</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="327" parent="299" name="item_code">
-      <ColNames>item_code</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="328" parent="299" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <Primary>1</Primary>
-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
-    </key>
-    <column id="329" parent="300" name="bill_number">
-      <AutoIncrement>1</AutoIncrement>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StoredType>bigint|0s</StoredType>
-    </column>
-    <column id="330" parent="300" name="bill_date">
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-      <StoredType>datetime|0s</StoredType>
-    </column>
-    <column id="331" parent="300" name="total_amount">
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-      <StoredType>decimal(10,2 digit)|0s</StoredType>
-    </column>
-    <column id="332" parent="300" name="discount">
-      <DefaultExpression>0.00</DefaultExpression>
-      <Position>4</Position>
-      <StoredType>decimal(10,2 digit)|0s</StoredType>
-    </column>
-    <column id="333" parent="300" name="cash_tendered">
-      <NotNull>1</NotNull>
-      <Position>5</Position>
-      <StoredType>decimal(10,2 digit)|0s</StoredType>
-    </column>
-    <column id="334" parent="300" name="change_amount">
-      <NotNull>1</NotNull>
-      <Position>6</Position>
-      <StoredType>decimal(10,2 digit)|0s</StoredType>
-    </column>
-    <column id="335" parent="300" name="transaction_type">
-      <NotNull>1</NotNull>
-      <Position>7</Position>
-      <StoredType>enum(&apos;IN_STORE&apos;, &apos;ONLINE&apos;)|0e</StoredType>
-    </column>
-    <column id="336" parent="300" name="user_id">
-      <Position>8</Position>
-      <StoredType>bigint|0s</StoredType>
-    </column>
-    <column id="337" parent="300" name="created_at">
-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
-      <Position>9</Position>
-      <StoredType>timestamp|0s</StoredType>
-    </column>
-    <foreign-key id="338" parent="300" name="bills_ibfk_1">
-      <ColNames>user_id</ColNames>
-      <RefColNames>id</RefColNames>
-      <RefTableName>users</RefTableName>
-    </foreign-key>
-    <index id="339" parent="300" name="PRIMARY">
-      <ColNames>bill_number</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <index id="340" parent="300" name="idx_bill_date">
-      <ColNames>bill_date</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="341" parent="300" name="idx_transaction_type">
-      <ColNames>transaction_type</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="342" parent="300" name="user_id">
-      <ColNames>user_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="343" parent="300" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <Primary>1</Primary>
-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
-    </key>
-    <column id="344" parent="301" name="code">
-      <NotNull>1</NotNull>
-      <Position>1</Position>
       <StoredType>varchar(20)|0s</StoredType>
     </column>
-    <column id="345" parent="301" name="name">
-      <NotNull>1</NotNull>
-      <Position>2</Position>
+    <column id="341" parent="306" name="item_name">
+      <Position>5</Position>
       <StoredType>varchar(100)|0s</StoredType>
     </column>
-    <column id="346" parent="301" name="price">
+    <column id="342" parent="306" name="quantity">
       <NotNull>1</NotNull>
-      <Position>3</Position>
+      <Position>6</Position>
+      <StoredType>int|0s</StoredType>
+    </column>
+    <column id="343" parent="306" name="unit_price">
+      <NotNull>1</NotNull>
+      <Position>7</Position>
       <StoredType>decimal(10,2 digit)|0s</StoredType>
     </column>
-    <column id="347" parent="301" name="quantity">
-      <DefaultExpression>0</DefaultExpression>
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-      <StoredType>int|0s</StoredType>
-    </column>
-    <column id="348" parent="301" name="state">
-      <NotNull>1</NotNull>
-      <Position>5</Position>
-      <StoredType>enum(&apos;IN_STORE&apos;, &apos;ON_SHELF&apos;, &apos;EXPIRED&apos;, &apos;SOLD_OUT&apos;)|0e</StoredType>
-    </column>
-    <column id="349" parent="301" name="purchase_date">
-      <NotNull>1</NotNull>
-      <Position>6</Position>
-      <StoredType>date|0s</StoredType>
-    </column>
-    <column id="350" parent="301" name="expiry_date">
-      <Position>7</Position>
-      <StoredType>date|0s</StoredType>
-    </column>
-    <column id="351" parent="301" name="created_at">
-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    <column id="344" parent="306" name="total_price">
+      <ColumnKind>generated-stored</ColumnKind>
+      <DefaultExpression>(`quantity` * `unit_price`)</DefaultExpression>
       <Position>8</Position>
+      <StoredType>decimal(10,2 digit)|0s</StoredType>
+    </column>
+    <column id="345" parent="306" name="subtotal">
+      <ColumnKind>generated-stored</ColumnKind>
+      <DefaultExpression>(`quantity` * `unit_price`)</DefaultExpression>
+      <Position>9</Position>
+      <StoredType>decimal(10,2 digit)|0s</StoredType>
+    </column>
+    <column id="346" parent="306" name="created_at">
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>10</Position>
       <StoredType>timestamp|0s</StoredType>
     </column>
-    <column id="352" parent="301" name="updated_at">
-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
-      <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
-      <Position>9</Position>
-      <StoredType>timestamp|0s</StoredType>
-    </column>
-    <index id="353" parent="301" name="PRIMARY">
-      <ColNames>code</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <index id="354" parent="301" name="idx_state">
-      <ColNames>state</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="355" parent="301" name="idx_expiry">
-      <ColNames>expiry_date</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="356" parent="301" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <Primary>1</Primary>
-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
-    </key>
-    <column id="357" parent="302" name="id">
-      <AutoIncrement>1</AutoIncrement>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StoredType>bigint|0s</StoredType>
-    </column>
-    <column id="358" parent="302" name="item_code">
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-      <StoredType>varchar(20)|0s</StoredType>
-    </column>
-    <column id="359" parent="302" name="movement_type">
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-      <StoredType>enum(&apos;PURCHASE&apos;, &apos;SHELF&apos;, &apos;SALE&apos;, &apos;EXPIRE&apos;, &apos;ADJUSTMENT&apos;)|0e</StoredType>
-    </column>
-    <column id="360" parent="302" name="quantity">
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-      <StoredType>int|0s</StoredType>
-    </column>
-    <column id="361" parent="302" name="from_state">
-      <Position>5</Position>
-      <StoredType>enum(&apos;IN_STORE&apos;, &apos;ON_SHELF&apos;, &apos;EXPIRED&apos;, &apos;SOLD_OUT&apos;)|0e</StoredType>
-    </column>
-    <column id="362" parent="302" name="to_state">
-      <Position>6</Position>
-      <StoredType>enum(&apos;IN_STORE&apos;, &apos;ON_SHELF&apos;, &apos;EXPIRED&apos;, &apos;SOLD_OUT&apos;)|0e</StoredType>
-    </column>
-    <column id="363" parent="302" name="movement_date">
-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
-      <Position>7</Position>
-      <StoredType>datetime|0s</StoredType>
-    </column>
-    <column id="364" parent="302" name="user_id">
-      <Position>8</Position>
-      <StoredType>bigint|0s</StoredType>
-    </column>
-    <column id="365" parent="302" name="notes">
-      <Position>9</Position>
-      <StoredType>text|0s</StoredType>
-    </column>
-    <foreign-key id="366" parent="302" name="stock_movements_ibfk_1">
+    <foreign-key id="347" parent="306" name="bill_items_ibfk_1">
+      <ColNames>bill_id</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>id</RefColNames>
+      <RefTableName>bills</RefTableName>
+    </foreign-key>
+    <foreign-key id="348" parent="306" name="bill_items_ibfk_2">
       <ColNames>item_code</ColNames>
       <RefColNames>code</RefColNames>
       <RefTableName>items</RefTableName>
     </foreign-key>
-    <foreign-key id="367" parent="302" name="stock_movements_ibfk_2">
-      <ColNames>user_id</ColNames>
-      <RefColNames>id</RefColNames>
-      <RefTableName>users</RefTableName>
-    </foreign-key>
-    <index id="368" parent="302" name="PRIMARY">
+    <index id="349" parent="306" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="369" parent="302" name="idx_item_movement">
-      <ColNames>item_code
-movement_date</ColNames>
+    <index id="350" parent="306" name="idx_bill_id">
+      <ColNames>bill_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="370" parent="302" name="idx_movement_date">
-      <ColNames>movement_date</ColNames>
+    <index id="351" parent="306" name="idx_bill_number">
+      <ColNames>bill_number</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="371" parent="302" name="user_id">
-      <ColNames>user_id</ColNames>
+    <index id="352" parent="306" name="idx_item_code">
+      <ColNames>item_code</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="372" parent="302" name="PRIMARY">
+    <key id="353" parent="306" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="373" parent="303" name="id">
-      <AutoIncrement>1</AutoIncrement>
+    <column id="354" parent="307" name="id">
+      <AutoIncrement>4</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>bigint|0s</StoredType>
     </column>
-    <column id="374" parent="303" name="username">
+    <column id="355" parent="307" name="bill_number">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>varchar(50)|0s</StoredType>
     </column>
-    <column id="375" parent="303" name="email">
+    <column id="356" parent="307" name="bill_date">
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StoredType>varchar(100)|0s</StoredType>
+      <StoredType>datetime|0s</StoredType>
     </column>
-    <column id="376" parent="303" name="password_hash">
+    <column id="357" parent="307" name="total_amount">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StoredType>varchar(255)|0s</StoredType>
+      <StoredType>decimal(10,2 digit)|0s</StoredType>
     </column>
-    <column id="377" parent="303" name="role">
-      <NotNull>1</NotNull>
+    <column id="358" parent="307" name="discount">
+      <DefaultExpression>0.00</DefaultExpression>
       <Position>5</Position>
-      <StoredType>enum(&apos;ADMIN&apos;, &apos;CASHIER&apos;, &apos;MANAGER&apos;)|0e</StoredType>
+      <StoredType>decimal(10,2 digit)|0s</StoredType>
     </column>
-    <column id="378" parent="303" name="created_at">
-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    <column id="359" parent="307" name="cash_tendered">
+      <NotNull>1</NotNull>
       <Position>6</Position>
+      <StoredType>decimal(10,2 digit)|0s</StoredType>
+    </column>
+    <column id="360" parent="307" name="cash_received">
+      <ColumnKind>generated-stored</ColumnKind>
+      <DefaultExpression>`cash_tendered`</DefaultExpression>
+      <Position>7</Position>
+      <StoredType>decimal(10,2 digit)|0s</StoredType>
+    </column>
+    <column id="361" parent="307" name="change_amount">
+      <NotNull>1</NotNull>
+      <Position>8</Position>
+      <StoredType>decimal(10,2 digit)|0s</StoredType>
+    </column>
+    <column id="362" parent="307" name="transaction_type">
+      <DefaultExpression>&apos;IN_STORE&apos;</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>9</Position>
+      <StoredType>enum(&apos;IN_STORE&apos;, &apos;ONLINE&apos;, &apos;OFFLINE&apos;)|0e</StoredType>
+    </column>
+    <column id="363" parent="307" name="user_id_ref">
+      <Position>10</Position>
+      <StoredType>bigint|0s</StoredType>
+    </column>
+    <column id="364" parent="307" name="user_id">
+      <Position>11</Position>
+      <StoredType>varchar(50)|0s</StoredType>
+    </column>
+    <column id="365" parent="307" name="created_at">
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>12</Position>
       <StoredType>timestamp|0s</StoredType>
     </column>
-    <index id="379" parent="303" name="PRIMARY">
+    <foreign-key id="366" parent="307" name="bills_ibfk_1">
+      <ColNames>user_id_ref</ColNames>
+      <OnDelete>set-null</OnDelete>
+      <RefColNames>id</RefColNames>
+      <RefTableName>users</RefTableName>
+    </foreign-key>
+    <index id="367" parent="307" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="380" parent="303" name="username">
-      <ColNames>username</ColNames>
+    <index id="368" parent="307" name="bill_number">
+      <ColNames>bill_number</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="381" parent="303" name="idx_username">
-      <ColNames>username</ColNames>
+    <index id="369" parent="307" name="idx_bill_number">
+      <ColNames>bill_number</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="382" parent="303" name="PRIMARY">
+    <index id="370" parent="307" name="idx_bill_date">
+      <ColNames>bill_date</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="371" parent="307" name="idx_transaction_type">
+      <ColNames>transaction_type</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="372" parent="307" name="idx_user_id_ref">
+      <ColNames>user_id_ref</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="373" parent="307" name="idx_user_id">
+      <ColNames>user_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="374" parent="307" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="383" parent="303" name="username">
+    <key id="375" parent="307" name="bill_number">
+      <UnderlyingIndexName>bill_number</UnderlyingIndexName>
+    </key>
+    <trigger id="376" parent="307" name="tr_bills_audit_insert">
+      <Definer>root@localhost</Definer>
+      <Events>I</Events>
+      <SourceTextLength>449</SourceTextLength>
+    </trigger>
+    <column id="377" parent="308" name="code">
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StoredType>varchar(20)|0s</StoredType>
+    </column>
+    <column id="378" parent="308" name="item_code">
+      <ColumnKind>generated-stored</ColumnKind>
+      <DefaultExpression>`code`</DefaultExpression>
+      <Position>2</Position>
+      <StoredType>varchar(20)|0s</StoredType>
+    </column>
+    <column id="379" parent="308" name="name">
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StoredType>varchar(100)|0s</StoredType>
+    </column>
+    <column id="380" parent="308" name="category">
+      <DefaultExpression>&apos;General&apos;</DefaultExpression>
+      <Position>4</Position>
+      <StoredType>varchar(50)|0s</StoredType>
+    </column>
+    <column id="381" parent="308" name="price">
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <StoredType>decimal(10,2 digit)|0s</StoredType>
+    </column>
+    <column id="382" parent="308" name="quantity_in_store">
+      <DefaultExpression>0</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+      <StoredType>int|0s</StoredType>
+    </column>
+    <column id="383" parent="308" name="quantity_on_shelf">
+      <DefaultExpression>0</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+      <StoredType>int|0s</StoredType>
+    </column>
+    <column id="384" parent="308" name="quantity">
+      <ColumnKind>generated-stored</ColumnKind>
+      <DefaultExpression>(`quantity_in_store` + `quantity_on_shelf`)</DefaultExpression>
+      <Position>8</Position>
+      <StoredType>int|0s</StoredType>
+    </column>
+    <column id="385" parent="308" name="reorder_level">
+      <DefaultExpression>50</DefaultExpression>
+      <Position>9</Position>
+      <StoredType>int|0s</StoredType>
+    </column>
+    <column id="386" parent="308" name="state">
+      <DefaultExpression>&apos;IN_STORE&apos;</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>10</Position>
+      <StoredType>enum(&apos;IN_STORE&apos;, &apos;ON_SHELF&apos;, &apos;EXPIRED&apos;, &apos;SOLD_OUT&apos;)|0e</StoredType>
+    </column>
+    <column id="387" parent="308" name="purchase_date">
+      <DefaultExpression>(curdate())</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>11</Position>
+      <StoredType>date|0s</StoredType>
+    </column>
+    <column id="388" parent="308" name="expiry_date">
+      <Position>12</Position>
+      <StoredType>date|0s</StoredType>
+    </column>
+    <column id="389" parent="308" name="created_at">
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>13</Position>
+      <StoredType>timestamp|0s</StoredType>
+    </column>
+    <column id="390" parent="308" name="updated_at">
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
+      <Position>14</Position>
+      <StoredType>timestamp|0s</StoredType>
+    </column>
+    <index id="391" parent="308" name="PRIMARY">
+      <ColNames>code</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="392" parent="308" name="idx_category">
+      <ColNames>category</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="393" parent="308" name="idx_quantity_on_shelf">
+      <ColNames>quantity_on_shelf</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="394" parent="308" name="idx_state">
+      <ColNames>state</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="395" parent="308" name="idx_expiry">
+      <ColNames>expiry_date</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="396" parent="308" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <trigger id="397" parent="308" name="tr_items_audit_update">
+      <Definer>root@localhost</Definer>
+      <Events>U</Events>
+      <SourceTextLength>803</SourceTextLength>
+    </trigger>
+    <column id="398" parent="309" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StoredType>bigint|0s</StoredType>
+    </column>
+    <column id="399" parent="309" name="item_code">
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StoredType>varchar(20)|0s</StoredType>
+    </column>
+    <column id="400" parent="309" name="movement_type">
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StoredType>enum(&apos;PURCHASE&apos;, &apos;SHELF&apos;, &apos;SALE&apos;, &apos;EXPIRE&apos;, &apos;ADJUSTMENT&apos;)|0e</StoredType>
+    </column>
+    <column id="401" parent="309" name="quantity">
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StoredType>int|0s</StoredType>
+    </column>
+    <column id="402" parent="309" name="from_state">
+      <Position>5</Position>
+      <StoredType>enum(&apos;IN_STORE&apos;, &apos;ON_SHELF&apos;, &apos;EXPIRED&apos;, &apos;SOLD_OUT&apos;)|0e</StoredType>
+    </column>
+    <column id="403" parent="309" name="to_state">
+      <Position>6</Position>
+      <StoredType>enum(&apos;IN_STORE&apos;, &apos;ON_SHELF&apos;, &apos;EXPIRED&apos;, &apos;SOLD_OUT&apos;)|0e</StoredType>
+    </column>
+    <column id="404" parent="309" name="movement_date">
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>7</Position>
+      <StoredType>datetime|0s</StoredType>
+    </column>
+    <column id="405" parent="309" name="user_id">
+      <Position>8</Position>
+      <StoredType>bigint|0s</StoredType>
+    </column>
+    <column id="406" parent="309" name="notes">
+      <Position>9</Position>
+      <StoredType>text|0s</StoredType>
+    </column>
+    <foreign-key id="407" parent="309" name="stock_movements_ibfk_1">
+      <ColNames>item_code</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>code</RefColNames>
+      <RefTableName>items</RefTableName>
+    </foreign-key>
+    <foreign-key id="408" parent="309" name="stock_movements_ibfk_2">
+      <ColNames>user_id</ColNames>
+      <OnDelete>set-null</OnDelete>
+      <RefColNames>id</RefColNames>
+      <RefTableName>users</RefTableName>
+    </foreign-key>
+    <index id="409" parent="309" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="410" parent="309" name="idx_item_movement">
+      <ColNames>item_code
+movement_date</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="411" parent="309" name="idx_movement_date">
+      <ColNames>movement_date</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="412" parent="309" name="user_id">
+      <ColNames>user_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="413" parent="309" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="414" parent="310" name="id">
+      <AutoIncrement>6</AutoIncrement>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StoredType>bigint|0s</StoredType>
+    </column>
+    <column id="415" parent="310" name="user_id">
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StoredType>varchar(50)|0s</StoredType>
+    </column>
+    <column id="416" parent="310" name="username">
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StoredType>varchar(50)|0s</StoredType>
+    </column>
+    <column id="417" parent="310" name="email">
+      <Position>4</Position>
+      <StoredType>varchar(100)|0s</StoredType>
+    </column>
+    <column id="418" parent="310" name="password_hash">
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <StoredType>varchar(255)|0s</StoredType>
+    </column>
+    <column id="419" parent="310" name="role">
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+      <StoredType>enum(&apos;ADMIN&apos;, &apos;CASHIER&apos;, &apos;MANAGER&apos;)|0e</StoredType>
+    </column>
+    <column id="420" parent="310" name="full_name">
+      <Position>7</Position>
+      <StoredType>varchar(100)|0s</StoredType>
+    </column>
+    <column id="421" parent="310" name="created_at">
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>8</Position>
+      <StoredType>timestamp|0s</StoredType>
+    </column>
+    <column id="422" parent="310" name="last_login_at">
+      <Position>9</Position>
+      <StoredType>timestamp|0s</StoredType>
+    </column>
+    <index id="423" parent="310" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="424" parent="310" name="user_id">
+      <ColNames>user_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="425" parent="310" name="username">
+      <ColNames>username</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="426" parent="310" name="idx_user_id">
+      <ColNames>user_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="427" parent="310" name="idx_username">
+      <ColNames>username</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="428" parent="310" name="idx_email">
+      <ColNames>email</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="429" parent="310" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <key id="430" parent="310" name="user_id">
+      <UnderlyingIndexName>user_id</UnderlyingIndexName>
+    </key>
+    <key id="431" parent="310" name="username">
       <UnderlyingIndexName>username</UnderlyingIndexName>
     </key>
+    <column id="432" parent="311" name="sale_date">
+      <Position>1</Position>
+      <StoredType>date|0s</StoredType>
+    </column>
+    <column id="433" parent="311" name="total_transactions">
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StoredType>bigint|0s</StoredType>
+    </column>
+    <column id="434" parent="311" name="gross_revenue">
+      <Position>3</Position>
+      <StoredType>decimal(32,2 digit)|0s</StoredType>
+    </column>
+    <column id="435" parent="311" name="total_discount">
+      <Position>4</Position>
+      <StoredType>decimal(32,2 digit)|0s</StoredType>
+    </column>
+    <column id="436" parent="311" name="net_revenue">
+      <Position>5</Position>
+      <StoredType>decimal(33,2 digit)|0s</StoredType>
+    </column>
+    <column id="437" parent="311" name="unique_items_sold">
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+      <StoredType>bigint|0s</StoredType>
+    </column>
+    <column id="438" parent="311" name="total_items_sold">
+      <Position>7</Position>
+      <StoredType>decimal(32)|0s</StoredType>
+    </column>
+    <column id="439" parent="312" name="code">
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StoredType>varchar(20)|0s</StoredType>
+    </column>
+    <column id="440" parent="312" name="name">
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StoredType>varchar(100)|0s</StoredType>
+    </column>
+    <column id="441" parent="312" name="category">
+      <Position>3</Position>
+      <StoredType>varchar(50)|0s</StoredType>
+    </column>
+    <column id="442" parent="312" name="quantity_on_shelf">
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StoredType>int|0s</StoredType>
+    </column>
+    <column id="443" parent="312" name="expiry_date">
+      <Position>5</Position>
+      <StoredType>date|0s</StoredType>
+    </column>
+    <column id="444" parent="312" name="state">
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+      <StoredType>enum(&apos;IN_STORE&apos;, &apos;ON_SHELF&apos;, &apos;EXPIRED&apos;, &apos;SOLD_OUT&apos;)|0e</StoredType>
+    </column>
+    <column id="445" parent="312" name="days_until_expiry">
+      <Position>7</Position>
+      <StoredType>int|0s</StoredType>
+    </column>
+    <column id="446" parent="313" name="state">
+      <Position>1</Position>
+      <StoredType>varchar(8)|0s</StoredType>
+    </column>
+    <column id="447" parent="313" name="item_count">
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StoredType>bigint|0s</StoredType>
+    </column>
+    <column id="448" parent="313" name="total_quantity">
+      <Position>3</Position>
+      <StoredType>decimal(33)|0s</StoredType>
+    </column>
+    <column id="449" parent="313" name="total_value">
+      <Position>4</Position>
+      <StoredType>decimal(43,2 digit)|0s</StoredType>
+    </column>
+    <column id="450" parent="314" name="item_code">
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StoredType>varchar(20)|0s</StoredType>
+    </column>
+    <column id="451" parent="314" name="name">
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StoredType>varchar(100)|0s</StoredType>
+    </column>
+    <column id="452" parent="314" name="category">
+      <Position>3</Position>
+      <StoredType>varchar(50)|0s</StoredType>
+    </column>
+    <column id="453" parent="314" name="price">
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StoredType>decimal(10,2 digit)|0s</StoredType>
+    </column>
+    <column id="454" parent="314" name="quantity_on_shelf">
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <StoredType>int|0s</StoredType>
+    </column>
+    <column id="455" parent="314" name="state">
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+      <StoredType>enum(&apos;IN_STORE&apos;, &apos;ON_SHELF&apos;, &apos;EXPIRED&apos;, &apos;SOLD_OUT&apos;)|0e</StoredType>
+    </column>
+    <column id="456" parent="315" name="code">
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StoredType>varchar(20)|0s</StoredType>
+    </column>
+    <column id="457" parent="315" name="name">
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StoredType>varchar(100)|0s</StoredType>
+    </column>
+    <column id="458" parent="315" name="category">
+      <Position>3</Position>
+      <StoredType>varchar(50)|0s</StoredType>
+    </column>
+    <column id="459" parent="315" name="quantity_on_shelf">
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StoredType>int|0s</StoredType>
+    </column>
+    <column id="460" parent="315" name="quantity_in_store">
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <StoredType>int|0s</StoredType>
+    </column>
+    <column id="461" parent="315" name="total_quantity">
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+      <StoredType>bigint|0s</StoredType>
+    </column>
+    <column id="462" parent="315" name="reorder_level">
+      <Position>7</Position>
+      <StoredType>int|0s</StoredType>
+    </column>
+    <column id="463" parent="315" name="state">
+      <NotNull>1</NotNull>
+      <Position>8</Position>
+      <StoredType>enum(&apos;IN_STORE&apos;, &apos;ON_SHELF&apos;, &apos;EXPIRED&apos;, &apos;SOLD_OUT&apos;)|0e</StoredType>
+    </column>
+    <column id="464" parent="315" name="price">
+      <NotNull>1</NotNull>
+      <Position>9</Position>
+      <StoredType>decimal(10,2 digit)|0s</StoredType>
+    </column>
   </database-model>
 </dataSource>
