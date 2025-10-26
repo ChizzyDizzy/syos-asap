@@ -4,6 +4,7 @@ import com.syos.domain.entities.*;
 import com.syos.domain.interfaces.BillVisitor;
 import com.syos.domain.valueobjects.Money;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 public class BillStatisticsVisitor implements BillVisitor {
@@ -36,8 +37,9 @@ public class BillStatisticsVisitor implements BillVisitor {
         if (billCount == 0) {
             return new Money(BigDecimal.ZERO);
         }
+        // FIX: Use RoundingMode.HALF_UP instead of deprecated BigDecimal.ROUND_HALF_UP
         return new Money(totalRevenue.getValue().divide(
-                BigDecimal.valueOf(billCount), 2, BigDecimal.ROUND_HALF_UP));
+                BigDecimal.valueOf(billCount), 2, RoundingMode.HALF_UP));
     }
 
     public Money getTotalDiscount() {

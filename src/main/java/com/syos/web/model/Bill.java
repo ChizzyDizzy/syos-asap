@@ -1,6 +1,8 @@
 package com.syos.web.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bill {
     private long id;
@@ -14,6 +16,7 @@ public class Bill {
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private int version;
+    private List<BillItem> items = new ArrayList<>();
 
     public Bill() {
         this.version = 0;
@@ -27,6 +30,57 @@ public class Bill {
         this.version = 0;
     }
 
+    // Nested BillItem class
+    public static class BillItem {
+        private String itemCode;
+        private int quantity;
+        private double unitPrice;
+        private double totalPrice;
+
+        public BillItem() {
+        }
+
+        public BillItem(String itemCode, int quantity, double unitPrice) {
+            this.itemCode = itemCode;
+            this.quantity = quantity;
+            this.unitPrice = unitPrice;
+            this.totalPrice = unitPrice * quantity;
+        }
+
+        public String getItemCode() {
+            return itemCode;
+        }
+
+        public void setItemCode(String itemCode) {
+            this.itemCode = itemCode;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
+
+        public double getUnitPrice() {
+            return unitPrice;
+        }
+
+        public void setUnitPrice(double unitPrice) {
+            this.unitPrice = unitPrice;
+        }
+
+        public double getTotalPrice() {
+            return totalPrice;
+        }
+
+        public void setTotalPrice(double totalPrice) {
+            this.totalPrice = totalPrice;
+        }
+    }
+
+    // Getters and Setters
     public long getId() {
         return id;
     }
@@ -113,6 +167,14 @@ public class Bill {
 
     public void setVersion(int version) {
         this.version = version;
+    }
+
+    public List<BillItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<BillItem> items) {
+        this.items = items;
     }
 
     @Override

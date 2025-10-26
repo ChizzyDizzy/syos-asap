@@ -25,22 +25,27 @@ public class ProductDAO {
         }
     }
 
+    /**
+     * Get product with pessimistic lock (creates own connection)
+     */
     public Product getProductWithLock(String code) throws SQLException {
         String query = "SELECT * FROM items WHERE code = ? FOR UPDATE";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(query);
 
-            stmt.setString(1, code);
-            ResultSet rs = stmt.executeQuery();
+        stmt.setString(1, code);
+        ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()) {
-                return mapResultSetToProduct(rs);
-            }
-            return null;
+        if (rs.next()) {
+            return mapResultSetToProduct(rs);
         }
+        return null;
     }
 
+    /**
+     * Get product with pessimistic lock (uses existing connection for transactions)
+     */
     public Product getProductWithLock(String code, Connection conn) throws SQLException {
         String query = "SELECT * FROM items WHERE code = ? FOR UPDATE";
 
@@ -191,6 +196,27 @@ public class ProductDAO {
                 return true;
             }
             return false;
+        }
+    }
+
+    /**
+     * Update stock by reducing quantity on shelf
+     * Used for billing/sales operations
+     */
+    public boolean updateStock(String code, int quantitySold) throws SQLException {
+        String query = "UPDATE items SET quantity_on_shelf = quantity_on_shelf - ? " +
+                "WHERE code = ? AND quantity_on_shelf >= ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, quantitySold);
+            stmt.setString(2, code);
+            stmt.setInt(3, quantitySold);
+
+            int rowsAffected = stmt.executeUpdate();
+
+            return rowsAffected > 0;
         }
     }
 

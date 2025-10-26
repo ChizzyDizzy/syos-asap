@@ -122,6 +122,33 @@ public class BillDAO {
         }
     }
 
+    // NEW METHOD: saveBill
+    public String saveBill(Bill bill) throws SQLException {
+        // Generate bill number if not exists
+        if (bill.getBillNumber() == null || bill.getBillNumber().isEmpty()) {
+            String billNumber = generateBillNumber();
+            bill.setBillNumber(billNumber);
+        }
+
+        // Set default status if not set
+        if (bill.getStatus() == null || bill.getStatus().isEmpty()) {
+            bill.setStatus("COMPLETED");
+        }
+
+        // Use existing createBill method
+        boolean created = createBill(bill);
+
+        if (created) {
+            return bill.getBillNumber();
+        }
+        return null;
+    }
+
+    // NEW METHOD: generateBillNumber
+    private String generateBillNumber() {
+        return "BILL-" + System.currentTimeMillis();
+    }
+
     public boolean updateBill(Bill bill) throws SQLException {
         String query = "UPDATE bills SET total_amount=?, discount=?, tax_amount=?, " +
                 "net_amount=?, status=?, version=? WHERE id=? AND version=?";

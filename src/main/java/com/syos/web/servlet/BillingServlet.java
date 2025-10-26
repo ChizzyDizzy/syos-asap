@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.BufferedReader;
+import java.sql.SQLException;
 
 public class BillingServlet extends HttpServlet {
     private BillDAO billDAO = new BillDAO();
@@ -30,23 +31,38 @@ public class BillingServlet extends HttpServlet {
 
         BufferedReader reader = request.getReader();
         Bill bill = gson.fromJson(reader, Bill.class);
-        bill.setUserId(user.getUserId());
+
+        // FIX 1: Use getId() instead of getUserId() - getId() returns long
+        bill.setUserId(user.getId());
 
         // Update stock for each item
         boolean stockUpdated = true;
-        for (Bill.BillItem item : bill.getItems()) {
-            if (!productDAO.updateStock(item.getItemCode(), item.getQuantity())) {
-                stockUpdated = false;
-                break;
+        if (bill.getItems() != null) {
+            for (Bill.BillItem item : bill.getItems()) {
+                try {
+                    // FIX 2: Use the correct updateStock method signature
+                    if (!productDAO.updateStock(item.getItemCode(), item.getQuantity())) {
+                        stockUpdated = false;
+                        break;
+                    }
+                } catch (SQLException e) {
+                    stockUpdated = false;
+                    e.printStackTrace();
+                    break;
+                }
             }
         }
 
         if (stockUpdated) {
-            String billNumber = billDAO.saveBill(bill);
-            if (billNumber != null) {
-                response.setContentType("application/json");
-                response.getWriter().write("{\"success\":true,\"billNumber\":\"" + billNumber + "\"}");
-                return;
+            try {
+                String billNumber = billDAO.saveBill(bill);
+                if (billNumber != null) {
+                    response.setContentType("application/json");
+                    response.getWriter().write("{\"success\":true,\"billNumber\":\"" + billNumber + "\"}");
+                    return;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
 
