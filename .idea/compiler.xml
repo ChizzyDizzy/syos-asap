@@ -7,12 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="syos-pos-system" />
+        <module name="syos-web" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="syos-pos-system" options="-Xlint:deprecation" />
+      <module name="syos-web" options="-Xlint:deprecation" />
     </option>
   </component>
 </project>

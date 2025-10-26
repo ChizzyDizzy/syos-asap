@@ -1,453 +1,208 @@
 package com.syos.web.servlet;
 
-import com.google.gson.Gson;
-import com.syos.web.dao.ProductDAO;
 import com.syos.web.model.Product;
+import com.syos.web.service.ConcurrentInventoryService;
+import com.syos.web.exception.ConcurrencyException;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
+import java.sql.Date;
+import java.sql.SQLException;
 
-/**
- * Servlet for managing products in the admin panel
- * Handles CRUD operations for products
- */
-@WebServlet(name = "AdminProductServlet", urlPatterns = {"/admin/products", "/admin-products"})
 public class AdminProductServlet extends HttpServlet {
 
-    private ProductDAO productDAO;
-    private Gson gson;
+    private ConcurrentInventoryService inventoryService;
 
     @Override
     public void init() throws ServletException {
-        super.init();
-        productDAO = new ProductDAO();
-        gson = new Gson();
-        System.out.println("==========================================");
-        System.out.println("AdminProductServlet INITIALIZED");
-        System.out.println("Servlet Name: " + getServletName());
-        System.out.println("==========================================");
+        inventoryService = ConcurrentInventoryService.getInstance();
     }
 
-    /**
-     * Check if user is authenticated and has admin role
-     */
-    private boolean isAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession(false);
-
-        if (session == null || session.getAttribute("user") == null) {
-            System.out.println("AdminProductServlet: No session or user - Unauthorized");
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.setContentType("application/json");
-            response.getWriter().write("{\"error\": \"Not authenticated\"}");
-            return false;
-        }
-
-        String role = (String) session.getAttribute("role");
-        if (!"ADMIN".equals(role)) {
-            System.out.println("AdminProductServlet: User is not admin, role=" + role);
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            response.setContentType("application/json");
-            response.getWriter().write("{\"error\": \"Admin access required\"}");
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * GET - Retrieve all products or single product by code
-     *
-     * Examples:
-     * - GET /admin-products -> returns all products
-     * - GET /admin-products?code=MILK001 -> returns single product
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        System.out.println("==========================================");
-        System.out.println("AdminProductServlet doGet called");
-        System.out.println("Request URI: " + request.getRequestURI());
-        System.out.println("Context Path: " + request.getContextPath());
-        System.out.println("Servlet Path: " + request.getServletPath());
-        System.out.println("==========================================");
+        String action = request.getParameter("action");
 
-        // Check admin access
-        if (!isAdmin(request, response)) {
-            return;
+        if (action == null) {
+            action = "list";
         }
 
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        PrintWriter out = response.getWriter();
-
         try {
-            // Get product code parameter (also check 'id' for backwards compatibility)
-            String itemCode = request.getParameter("code");
-            if (itemCode == null || itemCode.isEmpty()) {
-                itemCode = request.getParameter("id");
+            switch (action) {
+                case "add":
+                    showAddForm(request, response);
+                    break;
+                case "edit":
+                    showEditForm(request, response);
+                    break;
+                case "delete":
+                    deleteProduct(request, response);
+                    break;
+                default:
+                    listProducts(request, response);
+                    break;
             }
-
-            if (itemCode != null && !itemCode.isEmpty()) {
-                // Get single product by code
-                System.out.println("Fetching product with code: " + itemCode);
-                Product product = productDAO.getProductByCode(itemCode);
-
-                if (product != null) {
-                    String json = gson.toJson(product);
-                    out.write(json);
-                    System.out.println("Product found and returned");
-                } else {
-                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                    out.write("{\"error\": \"Product not found\"}");
-                    System.out.println("Product not found with code: " + itemCode);
-                }
-            } else {
-                // Get all products
-                System.out.println("Fetching all products");
-                List<Product> products = productDAO.getAllProducts();
-                String json = gson.toJson(products);
-                out.write(json);
-                System.out.println("Returning " + products.size() + " products");
-            }
-
-        } catch (Exception e) {
-            System.err.println("Error in AdminProductServlet doGet: " + e.getMessage());
-            e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.write("{\"error\": \"" + e.getMessage() + "\"}");
+        } catch (SQLException e) {
+            throw new ServletException("Database error", e);
         }
     }
 
-    /**
-     * POST - Create new product
-     *
-     * Expected JSON body:
-     * {
-     *   "itemCode": "PROD001",
-     *   "name": "Product Name",
-     *   "category": "Category",
-     *   "price": 10.99,
-     *   "quantityInStore": 100,
-     *   "quantityOnShelf": 50,
-     *   "reorderLevel": 50,
-     *   "state": "ON_SHELF",
-     *   "expiryDate": "2025-12-31"
-     * }
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        System.out.println("==========================================");
-        System.out.println("AdminProductServlet doPost called");
-        System.out.println("==========================================");
-
-        // Check admin access
-        if (!isAdmin(request, response)) {
-            return;
-        }
-
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        PrintWriter out = response.getWriter();
+        String action = request.getParameter("action");
 
         try {
-            // Read JSON from request body
-            StringBuilder sb = new StringBuilder();
-            BufferedReader reader = request.getReader();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
+            if ("add".equals(action)) {
+                addProduct(request, response);
+            } else if ("edit".equals(action)) {
+                updateProduct(request, response);
+            } else if ("updateStock".equals(action)) {
+                updateStock(request, response);
             }
-
-            String json = sb.toString();
-            System.out.println("Received JSON: " + json);
-
-            // Parse JSON to Product object
-            Product product = gson.fromJson(json, Product.class);
-
-            // Validate product code
-            if (product.getItemCode() == null || product.getItemCode().trim().isEmpty()) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                out.write("{\"error\": \"Product code is required\"}");
-                System.out.println("Validation failed: Product code is required");
-                return;
-            }
-
-            // Validate product name
-            if (product.getName() == null || product.getName().trim().isEmpty()) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                out.write("{\"error\": \"Product name is required\"}");
-                System.out.println("Validation failed: Product name is required");
-                return;
-            }
-
-            // Validate price
-            if (product.getPrice() <= 0) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                out.write("{\"error\": \"Product price must be greater than 0\"}");
-                System.out.println("Validation failed: Invalid price");
-                return;
-            }
-
-            // Validate quantities
-            if (product.getQuantityInStore() < 0) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                out.write("{\"error\": \"Quantity in store cannot be negative\"}");
-                System.out.println("Validation failed: Invalid quantity in store");
-                return;
-            }
-
-            if (product.getQuantityOnShelf() < 0) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                out.write("{\"error\": \"Quantity on shelf cannot be negative\"}");
-                System.out.println("Validation failed: Invalid quantity on shelf");
-                return;
-            }
-
-            // Set default values if not provided
-            if (product.getCategory() == null || product.getCategory().isEmpty()) {
-                product.setCategory("General");
-            }
-
-            if (product.getState() == null || product.getState().isEmpty()) {
-                // Set state based on shelf quantity
-                product.setState(product.getQuantityOnShelf() > 0 ? "ON_SHELF" : "IN_STORE");
-            }
-
-            if (product.getReorderLevel() == 0) {
-                product.setReorderLevel(50);
-            }
-
-            // Check if product code already exists
-            Product existing = productDAO.getProductByCode(product.getItemCode());
-            if (existing != null) {
-                response.setStatus(HttpServletResponse.SC_CONFLICT);
-                out.write("{\"error\": \"Product with code '" + product.getItemCode() + "' already exists\"}");
-                System.out.println("Product already exists with code: " + product.getItemCode());
-                return;
-            }
-
-            // Add product to database
-            boolean success = productDAO.addProduct(product);
-
-            if (success) {
-                response.setStatus(HttpServletResponse.SC_CREATED);
-                out.write("{\"message\": \"Product created successfully\", \"product\": " + gson.toJson(product) + "}");
-                System.out.println("Product created successfully: " + product.getItemCode());
-            } else {
-                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                out.write("{\"error\": \"Failed to create product\"}");
-                System.out.println("Failed to create product in database");
-            }
-
-        } catch (Exception e) {
-            System.err.println("Error in AdminProductServlet doPost: " + e.getMessage());
-            e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.write("{\"error\": \"" + e.getMessage() + "\"}");
+        } catch (SQLException | ConcurrencyException e) {
+            request.setAttribute("error", e.getMessage());
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
     }
 
-    /**
-     * PUT - Update existing product
-     *
-     * Expected JSON body:
-     * {
-     *   "itemCode": "PROD001",  // Required - identifies which product to update
-     *   "name": "Updated Name",
-     *   "category": "Category",
-     *   "price": 12.99,
-     *   "quantityInStore": 150,
-     *   "quantityOnShelf": 75,
-     *   "reorderLevel": 50,
-     *   "state": "ON_SHELF",
-     *   "expiryDate": "2025-12-31"
-     * }
-     */
-    @Override
-    protected void doPut(HttpServletRequest request, HttpServletResponse response)
+    private void listProducts(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+
+        var products = inventoryService.getAllProducts();
+        request.setAttribute("products", products);
+        request.getRequestDispatcher("/admin/products-list.jsp").forward(request, response);
+    }
+
+    private void showAddForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.getRequestDispatcher("/admin/product-form.jsp").forward(request, response);
+    }
 
-        System.out.println("==========================================");
-        System.out.println("AdminProductServlet doPut called");
-        System.out.println("==========================================");
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
 
-        // Check admin access
-        if (!isAdmin(request, response)) {
+        String code = request.getParameter("code");
+        Product product = inventoryService.getProduct(code);
+
+        if (product == null) {
+            request.setAttribute("error", "Product not found");
+            listProducts(request, response);
             return;
         }
 
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        PrintWriter out = response.getWriter();
+        request.setAttribute("product", product);
+        request.getRequestDispatcher("/admin/product-form.jsp").forward(request, response);
+    }
 
-        try {
-            // Read JSON from request body
-            StringBuilder sb = new StringBuilder();
-            BufferedReader reader = request.getReader();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
+    private void addProduct(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
 
-            String json = sb.toString();
-            System.out.println("Received JSON for update: " + json);
+        Product product = new Product();
+        product.setCode(request.getParameter("code"));
+        product.setName(request.getParameter("name"));
+        product.setCategory(request.getParameter("category"));
+        product.setPrice(Double.parseDouble(request.getParameter("price")));
+        product.setQuantityInStore(Integer.parseInt(request.getParameter("quantityInStore")));
+        product.setQuantityOnShelf(Integer.parseInt(request.getParameter("quantityOnShelf")));
+        product.setReorderLevel(Integer.parseInt(request.getParameter("reorderLevel")));
+        product.setState("AVAILABLE");
 
-            // Parse JSON to Product object
-            Product product = gson.fromJson(json, Product.class);
+        String purchaseDate = request.getParameter("purchaseDate");
+        if (purchaseDate != null && !purchaseDate.isEmpty()) {
+            product.setPurchaseDate(Date.valueOf(purchaseDate));
+        }
 
-            // Validate product code
-            if (product.getItemCode() == null || product.getItemCode().trim().isEmpty()) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                out.write("{\"error\": \"Product code is required\"}");
-                System.out.println("Validation failed: Product code is required");
-                return;
-            }
+        String expiryDate = request.getParameter("expiryDate");
+        if (expiryDate != null && !expiryDate.isEmpty()) {
+            product.setExpiryDate(Date.valueOf(expiryDate));
+        }
 
-            // Check if product exists
-            Product existing = productDAO.getProductByCode(product.getItemCode());
-            if (existing == null) {
-                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                out.write("{\"error\": \"Product with code '" + product.getItemCode() + "' not found\"}");
-                System.out.println("Product not found with code: " + product.getItemCode());
-                return;
-            }
+        boolean success = inventoryService.addProduct(product);
 
-            // Validate product name
-            if (product.getName() == null || product.getName().trim().isEmpty()) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                out.write("{\"error\": \"Product name is required\"}");
-                System.out.println("Validation failed: Product name is required");
-                return;
-            }
-
-            // Validate price
-            if (product.getPrice() <= 0) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                out.write("{\"error\": \"Product price must be greater than 0\"}");
-                System.out.println("Validation failed: Invalid price");
-                return;
-            }
-
-            // Validate quantities
-            if (product.getQuantityInStore() < 0) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                out.write("{\"error\": \"Quantity in store cannot be negative\"}");
-                System.out.println("Validation failed: Invalid quantity in store");
-                return;
-            }
-
-            if (product.getQuantityOnShelf() < 0) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                out.write("{\"error\": \"Quantity on shelf cannot be negative\"}");
-                System.out.println("Validation failed: Invalid quantity on shelf");
-                return;
-            }
-
-            // Update product in database
-            boolean success = productDAO.updateProduct(product);
-
-            if (success) {
-                out.write("{\"message\": \"Product updated successfully\", \"product\": " + gson.toJson(product) + "}");
-                System.out.println("Product updated successfully: " + product.getItemCode());
-            } else {
-                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                out.write("{\"error\": \"Failed to update product\"}");
-                System.out.println("Failed to update product in database");
-            }
-
-        } catch (Exception e) {
-            System.err.println("Error in AdminProductServlet doPut: " + e.getMessage());
-            e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.write("{\"error\": \"" + e.getMessage() + "\"}");
+        if (success) {
+            response.sendRedirect(request.getContextPath() + "/admin/products?message=Product added successfully");
+        } else {
+            request.setAttribute("error", "Failed to add product");
+            request.setAttribute("product", product);
+            request.getRequestDispatcher("/admin/product-form.jsp").forward(request, response);
         }
     }
 
-    /**
-     * DELETE - Delete product by code
-     *
-     * Examples:
-     * - DELETE /admin-products?code=MILK001
-     * - DELETE /admin-products?id=MILK001 (backwards compatibility)
-     */
-    @Override
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private void updateProduct(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException, ConcurrencyException {
 
-        System.out.println("==========================================");
-        System.out.println("AdminProductServlet doDelete called");
-        System.out.println("==========================================");
+        Product product = new Product();
+        product.setCode(request.getParameter("code"));
+        product.setName(request.getParameter("name"));
+        product.setCategory(request.getParameter("category"));
+        product.setPrice(Double.parseDouble(request.getParameter("price")));
+        product.setQuantityInStore(Integer.parseInt(request.getParameter("quantityInStore")));
+        product.setQuantityOnShelf(Integer.parseInt(request.getParameter("quantityOnShelf")));
+        product.setReorderLevel(Integer.parseInt(request.getParameter("reorderLevel")));
+        product.setState(request.getParameter("state"));
+        product.setVersion(Integer.parseInt(request.getParameter("version")));
 
-        // Check admin access
-        if (!isAdmin(request, response)) {
-            return;
+        String purchaseDate = request.getParameter("purchaseDate");
+        if (purchaseDate != null && !purchaseDate.isEmpty()) {
+            product.setPurchaseDate(Date.valueOf(purchaseDate));
         }
 
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        PrintWriter out = response.getWriter();
+        String expiryDate = request.getParameter("expiryDate");
+        if (expiryDate != null && !expiryDate.isEmpty()) {
+            product.setExpiryDate(Date.valueOf(expiryDate));
+        }
 
         try {
-            // Get product code parameter (also check 'id' for backwards compatibility)
-            String itemCode = request.getParameter("code");
-            if (itemCode == null || itemCode.isEmpty()) {
-                itemCode = request.getParameter("id");
-            }
-
-            if (itemCode == null || itemCode.isEmpty()) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                out.write("{\"error\": \"Product code is required\"}");
-                System.out.println("Validation failed: Product code is required");
-                return;
-            }
-
-            System.out.println("Attempting to delete product: " + itemCode);
-
-            // Check if product exists
-            Product product = productDAO.getProductByCode(itemCode);
-            if (product == null) {
-                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                out.write("{\"error\": \"Product not found\"}");
-                System.out.println("Product not found with code: " + itemCode);
-                return;
-            }
-
-            // Delete product
-            boolean success = productDAO.deleteProduct(itemCode);
+            boolean success = inventoryService.updateProduct(product);
 
             if (success) {
-                out.write("{\"message\": \"Product deleted successfully\"}");
-                System.out.println("Product deleted successfully: " + itemCode);
+                response.sendRedirect(request.getContextPath() + "/admin/products?message=Product updated successfully");
             } else {
-                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                out.write("{\"error\": \"Failed to delete product\"}");
-                System.out.println("Failed to delete product from database");
+                request.setAttribute("error", "Failed to update product");
+                request.setAttribute("product", product);
+                request.getRequestDispatcher("/admin/product-form.jsp").forward(request, response);
             }
-
-        } catch (Exception e) {
-            System.err.println("Error in AdminProductServlet doDelete: " + e.getMessage());
-            e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.write("{\"error\": \"" + e.getMessage() + "\"}");
+        } catch (ConcurrencyException e) {
+            request.setAttribute("error", "Concurrency conflict: " + e.getMessage());
+            Product currentProduct = inventoryService.getProduct(product.getCode());
+            request.setAttribute("product", currentProduct);
+            request.getRequestDispatcher("/admin/product-form.jsp").forward(request, response);
         }
     }
 
-    @Override
-    public void destroy() {
-        super.destroy();
-        System.out.println("==========================================");
-        System.out.println("AdminProductServlet DESTROYED");
-        System.out.println("==========================================");
+    private void updateStock(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+
+        String productCode = request.getParameter("code");
+        int quantityChange = Integer.parseInt(request.getParameter("quantity"));
+        String changeType = request.getParameter("changeType");
+
+        boolean success = inventoryService.updateStock(productCode, quantityChange, changeType);
+
+        if (success) {
+            response.sendRedirect(request.getContextPath() + "/admin/products?message=Stock updated successfully");
+        } else {
+            request.setAttribute("error", "Failed to update stock");
+            response.sendRedirect(request.getContextPath() + "/admin/products");
+        }
+    }
+
+    private void deleteProduct(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+
+        String code = request.getParameter("code");
+        boolean success = inventoryService.deleteProduct(code);
+
+        if (success) {
+            response.sendRedirect(request.getContextPath() + "/admin/products?message=Product deleted successfully");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/admin/products?error=Failed to delete product");
+        }
     }
 }

@@ -1,67 +1,123 @@
 package com.syos.web.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Timestamp;
 
 public class Bill {
+    private long id;
     private String billNumber;
-    private String userId;
+    private long userId;
     private double totalAmount;
-    private double cashReceived;
-    private double changeAmount;
-    private String transactionType;
-    private List<BillItem> items;
+    private double discount;
+    private double taxAmount;
+    private double netAmount;
+    private String status;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
+    private int version;
 
     public Bill() {
-        this.items = new ArrayList<>();
-        this.transactionType = "OFFLINE";
+        this.version = 0;
     }
 
-    public static class BillItem {
-        private String itemCode;
-        private String itemName;
-        private int quantity;
-        private double unitPrice;
-        private double subtotal;
-
-        public BillItem() {}
-
-        // Getters and Setters
-        public String getItemCode() { return itemCode; }
-        public void setItemCode(String itemCode) { this.itemCode = itemCode; }
-
-        public String getItemName() { return itemName; }
-        public void setItemName(String itemName) { this.itemName = itemName; }
-
-        public int getQuantity() { return quantity; }
-        public void setQuantity(int quantity) { this.quantity = quantity; }
-
-        public double getUnitPrice() { return unitPrice; }
-        public void setUnitPrice(double unitPrice) { this.unitPrice = unitPrice; }
-
-        public double getSubtotal() { return subtotal; }
-        public void setSubtotal(double subtotal) { this.subtotal = subtotal; }
+    public Bill(String billNumber, long userId, double totalAmount) {
+        this.billNumber = billNumber;
+        this.userId = userId;
+        this.totalAmount = totalAmount;
+        this.status = "PENDING";
+        this.version = 0;
     }
 
-    // Getters and Setters
-    public String getBillNumber() { return billNumber; }
-    public void setBillNumber(String billNumber) { this.billNumber = billNumber; }
+    public long getId() {
+        return id;
+    }
 
-    public String getUserId() { return userId; }
-    public void setUserId(String userId) { this.userId = userId; }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-    public double getTotalAmount() { return totalAmount; }
-    public void setTotalAmount(double totalAmount) { this.totalAmount = totalAmount; }
+    public String getBillNumber() {
+        return billNumber;
+    }
 
-    public double getCashReceived() { return cashReceived; }
-    public void setCashReceived(double cashReceived) { this.cashReceived = cashReceived; }
+    public void setBillNumber(String billNumber) {
+        this.billNumber = billNumber;
+    }
 
-    public double getChangeAmount() { return changeAmount; }
-    public void setChangeAmount(double changeAmount) { this.changeAmount = changeAmount; }
+    public long getUserId() {
+        return userId;
+    }
 
-    public String getTransactionType() { return transactionType; }
-    public void setTransactionType(String transactionType) { this.transactionType = transactionType; }
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
-    public List<BillItem> getItems() { return items; }
-    public void setItems(List<BillItem> items) { this.items = items; }
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public double getTaxAmount() {
+        return taxAmount;
+    }
+
+    public void setTaxAmount(double taxAmount) {
+        this.taxAmount = taxAmount;
+    }
+
+    public double getNetAmount() {
+        return netAmount;
+    }
+
+    public void setNetAmount(double netAmount) {
+        this.netAmount = netAmount;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Bill[id=%d, number=%s, user=%d, total=%.2f, status=%s, version=%d]",
+                id, billNumber, userId, totalAmount, status, version);
+    }
 }

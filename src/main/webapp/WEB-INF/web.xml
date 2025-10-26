@@ -2,69 +2,31 @@
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
-         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-         version="3.1"
-         metadata-complete="false">
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
 
-    <display-name>SYOS Web Application</display-name>
+    <display-name>SYOS Web POS System</display-name>
+    <description>Concurrent Point of Sale System</description>
 
-    <!-- Welcome file list -->
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-        <welcome-file>login.jsp</welcome-file>
-    </welcome-file-list>
+    <!-- ============================================ -->
+    <!-- FILTERS -->
+    <!-- ============================================ -->
 
-    <!-- Session Configuration -->
-    <session-config>
-        <session-timeout>30</session-timeout>
-    </session-config>
+    <filter>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>com.syos.web.filter.AuthenticationFilter</filter-class>
+    </filter>
 
-    <!-- ========================================= -->
-    <!-- SERVLET DECLARATIONS -->
-    <!-- ========================================= -->
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
-    <!-- Admin Product Servlet -->
-    <servlet>
-        <servlet-name>AdminProductServlet</servlet-name>
-        <servlet-class>com.syos.web.servlet.AdminProductServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
+    <!-- ============================================ -->
+    <!-- SERVLETS -->
+    <!-- ============================================ -->
 
-    <servlet-mapping>
-        <servlet-name>AdminProductServlet</servlet-name>
-        <url-pattern>/admin/products</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>AdminProductServlet</servlet-name>
-        <url-pattern>/admin-products</url-pattern>
-    </servlet-mapping>
-
-    <!-- Product Servlet -->
-    <servlet>
-        <servlet-name>ProductServlet</servlet-name>
-        <servlet-class>com.syos.web.servlet.ProductServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>ProductServlet</servlet-name>
-        <url-pattern>/products</url-pattern>
-    </servlet-mapping>
-
-    <!-- Billing Servlet -->
-    <servlet>
-        <servlet-name>BillingServlet</servlet-name>
-        <servlet-class>com.syos.web.servlet.BillingServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>BillingServlet</servlet-name>
-        <url-pattern>/billing</url-pattern>
-    </servlet-mapping>
-
-    <!-- Login Servlet -->
+    <!-- Login and Logout -->
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.syos.web.servlet.LoginServlet</servlet-class>
@@ -75,7 +37,6 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
-    <!-- Logout Servlet -->
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>com.syos.web.servlet.LogoutServlet</servlet-class>
@@ -86,8 +47,100 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 
+    <!-- Dashboard -->
+    <servlet>
+        <servlet-name>DashboardServlet</servlet-name>
+        <servlet-class>com.syos.web.servlet.DashboardServlet</servlet-class>
+    </servlet>
 
-    <!-- Error Pages -->
+    <servlet-mapping>
+        <servlet-name>DashboardServlet</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+
+    <!-- Product Management -->
+    <servlet>
+        <servlet-name>ProductServlet</servlet-name>
+        <servlet-class>com.syos.web.servlet.ProductServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ProductServlet</servlet-name>
+        <url-pattern>/products</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminProductServlet</servlet-name>
+        <servlet-class>com.syos.web.servlet.AdminProductServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AdminProductServlet</servlet-name>
+        <url-pattern>/admin/products</url-pattern>
+    </servlet-mapping>
+
+    <!-- Sales Management -->
+    <servlet>
+        <servlet-name>SalesServlet</servlet-name>
+        <servlet-class>com.syos.web.servlet.SalesServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SalesServlet</servlet-name>
+        <url-pattern>/sales</url-pattern>
+    </servlet-mapping>
+
+    <!-- Reports -->
+    <servlet>
+        <servlet-name>ReportServlet</servlet-name>
+        <servlet-class>com.syos.web.servlet.ReportServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ReportServlet</servlet-name>
+        <url-pattern>/reports</url-pattern>
+    </servlet-mapping>
+
+    <!-- User Management -->
+    <servlet>
+        <servlet-name>UserManagementServlet</servlet-name>
+        <servlet-class>com.syos.web.servlet.UserManagementServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UserManagementServlet</servlet-name>
+        <url-pattern>/admin/users</url-pattern>
+    </servlet-mapping>
+
+    <!-- ============================================ -->
+    <!-- WELCOME FILES -->
+    <!-- ============================================ -->
+
+    <welcome-file-list>
+        <welcome-file>login.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- ============================================ -->
+    <!-- SESSION CONFIGURATION -->
+    <!-- ============================================ -->
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>
+            <secure>false</secure>
+        </cookie-config>
+    </session-config>
+
+    <!-- ============================================ -->
+    <!-- ERROR PAGES -->
+    <!-- ============================================ -->
+
+    <error-page>
+        <error-code>403</error-code>
+        <location>/error-403.jsp</location>
+    </error-page>
+
     <error-page>
         <error-code>404</error-code>
         <location>/error-404.jsp</location>

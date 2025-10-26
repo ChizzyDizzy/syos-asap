@@ -1,92 +1,106 @@
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\persistence\gateways\BillGateway.java
-D:\new\syos-asap\src\main\java\com\syos\application\commands\inventory\MoveToShelfCommand.java
-D:\new\syos-asap\src\main\java\com\syos\web\servlet\AdminProductServlet.java
-D:\new\syos-asap\src\main\java\com\syos\application\commands\sales\CreateSaleCommand.java
-D:\new\syos-asap\src\main\java\com\syos\application\commands\NullCommand.java
-D:\new\syos-asap\src\main\java\com\syos\application\reports\DailySalesReport.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\ui\presenters\InventoryPresenter.java
-D:\new\syos-asap\src\main\java\com\syos\application\commands\reports\DailySalesReportCommand.java
-D:\new\syos-asap\src\main\java\com\syos\domain\exceptions\InvalidStateTransitionException.java
-D:\new\syos-asap\src\main\java\com\syos\domain\valueobjects\UserId.java
-D:\new\syos-asap\src\main\java\com\syos\web\dao\ProductDAO.java
-D:\new\syos-asap\src\main\java\com\syos\application\visitors\BillStatisticsVisitor.java
-D:\new\syos-asap\src\main\java\com\syos\domain\decorators\VisitableBill.java
-D:\new\syos-asap\src\main\java\com\syos\application\services\SalesService.java
-D:\new\syos-asap\src\main\java\com\syos\application\services\InventoryService.java
-D:\new\syos-asap\src\main\java\com\syos\application\commands\sales\ViewBillsCommand.java
-D:\new\syos-asap\src\main\java\com\syos\web\model\User.java
-D:\new\syos-asap\src\main\java\com\syos\application\reports\AbstractReport.java
-D:\new\syos-asap\src\main\java\com\syos\domain\interfaces\BillInterface.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\factories\CommandFactory.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\config\DatabaseConfig.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\ui\menu\Menu.java
-D:\new\syos-asap\src\main\java\com\syos\application\commands\user\LogoutCommand.java
-D:\new\syos-asap\src\main\java\com\syos\web\dao\UserDAO.java
-D:\new\syos-asap\src\main\java\com\syos\web\servlet\ProductServlet.java
-D:\new\syos-asap\src\main\java\com\syos\domain\valueobjects\Money.java
-D:\new\syos-asap\src\main\java\com\syos\domain\entities\InStoreState.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\factories\PresenterFactory.java
-D:\new\syos-asap\src\main\java\com\syos\domain\exceptions\ItemNotFoundException.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\ui\cli\CLIApplication.java
-D:\new\syos-asap\src\main\java\com\syos\domain\interfaces\ItemState.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\ui\menu\MenuBuilder.java
-D:\new\syos-asap\src\main\java\com\syos\application\interfaces\Command.java
-D:\new\syos-asap\src\main\java\com\syos\domain\entities\SoldOutState.java
-D:\new\syos-asap\src\main\java\com\syos\application\reports\StockReport.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\persistence\connection\ConnectionManager.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\ui\presenters\UserPresenter.java
-D:\new\syos-asap\src\main\java\com\syos\application\commands\reports\ReorderReportCommand.java
-D:\new\syos-asap\src\main\java\com\syos\domain\entities\ExpiredState.java
-D:\new\syos-asap\src\main\java\com\syos\application\reports\ReorderReport.java
-D:\new\syos-asap\src\main\java\com\syos\Main.java
-D:\new\syos-asap\src\main\java\com\syos\web\dao\BillDAO.java
-D:\new\syos-asap\src\main\java\com\syos\application\commands\user\RegisterUserCommand.java
-D:\new\syos-asap\src\main\java\com\syos\shared\utils\PasswordHashGenerator.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\factories\ServiceFactory.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\ui\menu\MenuItem.java
-D:\new\syos-asap\src\main\java\com\syos\web\util\DBConnection.java
-D:\new\syos-asap\src\main\java\com\syos\application\commands\user\LoginCommand.java
-D:\new\syos-asap\src\main\java\com\syos\domain\exceptions\InvalidItemException.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\persistence\connection\DatabaseConnectionPool.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\ui\cli\InputReader.java
-D:\new\syos-asap\src\main\java\com\syos\web\servlet\LogoutServlet.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\persistence\mappers\ItemMapper.java
-D:\new\syos-asap\src\main\java\com\syos\domain\entities\User.java
-D:\new\syos-asap\src\main\java\com\syos\domain\exceptions\UserAlreadyExistsException.java
-D:\new\syos-asap\src\main\java\com\syos\web\model\Product.java
-D:\new\syos-asap\src\main\java\com\syos\application\commands\inventory\ViewItemsCommand.java
-D:\new\syos-asap\src\main\java\com\syos\domain\exceptions\InvalidQuantityException.java
-D:\new\syos-asap\src\main\java\com\syos\domain\valueobjects\BillNumber.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\ui\presenters\ReportPresenter.java
-D:\new\syos-asap\src\main\java\com\syos\web\model\Bill.java
-D:\new\syos-asap\src\main\java\com\syos\application\visitors\BillPrinter.java
-D:\new\syos-asap\src\main\java\com\syos\domain\entities\BillItem.java
-D:\new\syos-asap\src\main\java\com\syos\domain\exceptions\EmptySaleException.java
-D:\new\syos-asap\src\main\java\com\syos\application\services\UserService.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\persistence\gateways\UserGateway.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\persistence\gateways\ItemGateway.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\ui\menu\MenuComponent.java
-D:\new\syos-asap\src\main\java\com\syos\application\commands\reports\StockReportCommand.java
-D:\new\syos-asap\src\main\java\com\syos\domain\valueobjects\UserRole.java
-D:\new\syos-asap\src\main\java\com\syos\web\servlet\LoginServlet.java
-D:\new\syos-asap\src\main\java\com\syos\domain\valueobjects\TransactionType.java
-D:\new\syos-asap\src\main\java\com\syos\application\commands\ExitCommand.java
-D:\new\syos-asap\src\main\java\com\syos\domain\exceptions\InsufficientPaymentException.java
-D:\new\syos-asap\src\main\java\com\syos\domain\valueobjects\Quantity.java
-D:\new\syos-asap\src\main\java\com\syos\domain\entities\Bill.java
-D:\new\syos-asap\src\main\java\com\syos\application\commands\DisplayMenuCommand.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\ui\presenters\SalesPresenter.java
-D:\new\syos-asap\src\main\java\com\syos\domain\exceptions\InsufficientStockException.java
-D:\new\syos-asap\src\main\java\com\syos\domain\exceptions\InvalidItemCodeException.java
-D:\new\syos-asap\src\main\java\com\syos\application\commands\inventory\AddStockCommand.java
-D:\new\syos-asap\src\main\java\com\syos\domain\interfaces\BillVisitor.java
-D:\new\syos-asap\src\main\java\com\syos\domain\valueobjects\ItemCode.java
-D:\new\syos-asap\src\main\java\com\syos\application\services\ReportService.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\persistence\mappers\BillMapper.java
-D:\new\syos-asap\src\main\java\com\syos\application\reports\ReshelveReport.java
-D:\new\syos-asap\src\main\java\com\syos\domain\decorators\OnlineTransactionDecorator.java
-D:\new\syos-asap\src\main\java\com\syos\web\servlet\BillingServlet.java
-D:\new\syos-asap\src\main\java\com\syos\infrastructure\persistence\gateways\OracleDatabaseGateway.java
-D:\new\syos-asap\src\main\java\com\syos\domain\entities\Item.java
-D:\new\syos-asap\src\main\java\com\syos\domain\entities\OnShelfState.java
-D:\new\syos-asap\src\main\java\com\syos\web\util\PasswordUtil.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\servlet\CustomerDashboardServlet.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\exceptions\ItemNotFoundException.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\shared\utils\PasswordHashGenerator.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\exceptions\InvalidItemException.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\ui\presenters\SalesPresenter.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\entities\Bill.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\ui\menu\MenuComponent.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\commands\reports\StockReportCommand.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\exception\InsufficientStockException.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\dao\UserDAO.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\dao\ProductDAO.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\valueobjects\BillNumber.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\ui\menu\MenuBuilder.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\exception\ConcurrencyException.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\entities\OnShelfState.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\servlet\ReportServlet.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\entities\InStoreState.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\persistence\gateways\UserGateway.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\entities\User.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\dao\BillDAO.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\factories\PresenterFactory.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\factories\ServiceFactory.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\servlet\LoginServlet.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\commands\sales\CreateSaleCommand.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\valueobjects\UserRole.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\entities\BillItem.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\exceptions\EmptySaleException.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\commands\user\RegisterUserCommand.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\services\UserService.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\exceptions\UserAlreadyExistsException.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\interfaces\BillInterface.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\commands\sales\ViewBillsCommand.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\persistence\connection\ConnectionManager.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\servlet\DashboardServlet.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\ui\cli\InputReader.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\reports\ReorderReport.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\services\ReportService.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\reports\AbstractReport.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\persistence\gateways\ItemGateway.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\commands\user\LogoutCommand.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\interfaces\ItemState.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\valueobjects\UserId.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\servlet\LogoutServlet.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\exceptions\InsufficientPaymentException.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\ui\cli\CLIApplication.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\persistence\gateways\OracleDatabaseGateway.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\commands\inventory\ViewItemsCommand.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\util\PasswordUtil.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\persistence\mappers\BillMapper.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\servlet\BillingServlet.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\config\DatabaseConfig.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\persistence\gateways\BillGateway.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\decorators\VisitableBill.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\service\ConcurrentSalesService.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\decorators\OnlineTransactionDecorator.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\servlet\SalesServlet.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\commands\inventory\AddStockCommand.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\persistence\mappers\ItemMapper.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\exceptions\InvalidStateTransitionException.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\services\InventoryService.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\services\SalesService.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\dao\SaleDAO.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\visitors\BillPrinter.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\commands\inventory\MoveToShelfCommand.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\exceptions\InsufficientStockException.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\pos\model\Role.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\model\SaleItem.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\valueobjects\ItemCode.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\reports\StockReport.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\ui\presenters\InventoryPresenter.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\ui\presenters\ReportPresenter.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\reports\ReshelveReport.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\model\User.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\commands\reports\ReorderReportCommand.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\servlet\ProductServlet.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\valueobjects\Money.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\entities\ExpiredState.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\interfaces\Command.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\filter\AuthenticationFilter.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\util\DBConnection.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\persistence\connection\DatabaseConnectionPool.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\model\Bill.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\commands\reports\DailySalesReportCommand.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\servlet\AdminProductServlet.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\ui\presenters\UserPresenter.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\model\Product.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\exceptions\InvalidItemCodeException.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\commands\DisplayMenuCommand.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\visitors\BillStatisticsVisitor.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\interfaces\BillVisitor.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\reports\DailySalesReport.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\commands\user\LoginCommand.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\ui\menu\MenuItem.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\servlet\UserManagementServlet.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\exceptions\InvalidQuantityException.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\commands\ExitCommand.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\valueobjects\TransactionType.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\valueobjects\Quantity.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\Main.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\entities\SoldOutState.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\ui\menu\Menu.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\service\ConcurrentInventoryService.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\model\Sale.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\factories\CommandFactory.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\commands\NullCommand.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\entities\Item.java

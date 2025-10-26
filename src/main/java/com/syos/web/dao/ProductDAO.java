@@ -2,104 +2,124 @@ package com.syos.web.dao;
 
 import com.syos.web.model.Product;
 import com.syos.web.util.DBConnection;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDAO {
 
-    public List<Product> getAllProducts() {
-        List<Product> products = new ArrayList<>();
-        String sql = "SELECT code, name, category, price, quantity_in_store, quantity_on_shelf, " +
-                "reorder_level, state, expiry_date FROM items ORDER BY name";
+    public Product getProductByCode(String code) throws SQLException {
+        String query = "SELECT * FROM items WHERE code = ?";
 
         try (Connection conn = DBConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            while (rs.next()) {
-                products.add(mapProduct(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return products;
-    }
-
-    public List<Product> getAvailableProducts() {
-        List<Product> products = new ArrayList<>();
-        String sql = "SELECT code, name, category, price, quantity_in_store, quantity_on_shelf, " +
-                "reorder_level, state, expiry_date FROM items " +
-                "WHERE quantity_on_shelf > 0 AND state = 'ON_SHELF' ORDER BY name";
-
-        try (Connection conn = DBConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-
-            while (rs.next()) {
-                products.add(mapProduct(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return products;
-    }
-
-    public Product getProductByCode(String itemCode) {
-        String sql = "SELECT code, name, category, price, quantity_in_store, quantity_on_shelf, " +
-                "reorder_level, state, expiry_date FROM items WHERE code = ?";
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, itemCode);
+            stmt.setString(1, code);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return mapProduct(rs);
+                return mapResultSetToProduct(rs);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
-    public boolean addProduct(Product product) {
-        String sql = "INSERT INTO items (code, name, category, price, quantity_in_store, " +
-                "quantity_on_shelf, reorder_level, state, purchase_date, expiry_date) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURDATE(), ?)";
+    public Product getProductWithLock(String code) throws SQLException {
+        String query = "SELECT * FROM items WHERE code = ? FOR UPDATE";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setString(1, product.getItemCode());
+            stmt.setString(1, code);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return mapResultSetToProduct(rs);
+            }
+            return null;
+        }
+    }
+
+    public Product getProductWithLock(String code, Connection conn) throws SQLException {
+        String query = "SELECT * FROM items WHERE code = ? FOR UPDATE";
+
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, code);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return mapResultSetToProduct(rs);
+            }
+            return null;
+        }
+    }
+
+    public List<Product> getAllProducts() throws SQLException {
+        String query = "SELECT * FROM items ORDER BY code";
+        List<Product> products = new ArrayList<>();
+
+        try (Connection conn = DBConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                products.add(mapResultSetToProduct(rs));
+            }
+        }
+
+        return products;
+    }
+
+    public List<Product> getProductsByCategory(String category) throws SQLException {
+        String query = "SELECT * FROM items WHERE category = ? ORDER BY code";
+        List<Product> products = new ArrayList<>();
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, category);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                products.add(mapResultSetToProduct(rs));
+            }
+        }
+
+        return products;
+    }
+
+    public boolean addProduct(Product product) throws SQLException {
+        String query = "INSERT INTO items (code, name, category, price, quantity_in_store, " +
+                "quantity_on_shelf, reorder_level, state, purchase_date, expiry_date, version) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, product.getCode());
             stmt.setString(2, product.getName());
             stmt.setString(3, product.getCategory());
             stmt.setDouble(4, product.getPrice());
             stmt.setInt(5, product.getQuantityInStore());
             stmt.setInt(6, product.getQuantityOnShelf());
             stmt.setInt(7, product.getReorderLevel());
-            stmt.setString(8, product.getState());
-
-            if (product.getExpiryDate() != null) {
-                stmt.setDate(9, product.getExpiryDate());
-            } else {
-                stmt.setNull(9, Types.DATE);
-            }
+            stmt.setString(8, product.getState() != null ? product.getState() : "AVAILABLE");
+            stmt.setDate(9, product.getPurchaseDate());
+            stmt.setDate(10, product.getExpiryDate());
+            stmt.setInt(11, 0);
 
             return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        return false;
     }
 
-    public boolean updateProduct(Product product) {
-        String sql = "UPDATE items SET name=?, category=?, price=?, quantity_in_store=?, " +
-                "quantity_on_shelf=?, reorder_level=?, state=?, expiry_date=? WHERE code=?";
+    public boolean updateProduct(Product product) throws SQLException {
+        String query = "UPDATE items SET name=?, category=?, price=?, quantity_in_store=?, " +
+                "quantity_on_shelf=?, reorder_level=?, state=?, purchase_date=?, " +
+                "expiry_date=? WHERE code=?";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setString(1, product.getName());
             stmt.setString(2, product.getCategory());
@@ -108,93 +128,120 @@ public class ProductDAO {
             stmt.setInt(5, product.getQuantityOnShelf());
             stmt.setInt(6, product.getReorderLevel());
             stmt.setString(7, product.getState());
-
-            if (product.getExpiryDate() != null) {
-                stmt.setDate(8, product.getExpiryDate());
-            } else {
-                stmt.setNull(8, Types.DATE);
-            }
-
-            stmt.setString(9, product.getItemCode());
+            stmt.setDate(8, product.getPurchaseDate());
+            stmt.setDate(9, product.getExpiryDate());
+            stmt.setString(10, product.getCode());
 
             return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        return false;
     }
 
-    public boolean deleteProduct(String itemCode) {
-        String sql = "DELETE FROM items WHERE code = ?";
+    public boolean updateProductWithVersion(Product product) throws SQLException {
+        String query = "UPDATE items SET name=?, category=?, price=?, quantity_in_store=?, " +
+                "quantity_on_shelf=?, reorder_level=?, state=?, purchase_date=?, " +
+                "expiry_date=?, version=? WHERE code=? AND version=?";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setString(1, itemCode);
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+            int newVersion = product.getVersion() + 1;
 
-    public boolean updateStock(String itemCode, int quantity) {
-        String sql = "UPDATE items SET quantity_on_shelf = quantity_on_shelf - ? " +
-                "WHERE code = ? AND quantity_on_shelf >= ?";
+            stmt.setString(1, product.getName());
+            stmt.setString(2, product.getCategory());
+            stmt.setDouble(3, product.getPrice());
+            stmt.setInt(4, product.getQuantityInStore());
+            stmt.setInt(5, product.getQuantityOnShelf());
+            stmt.setInt(6, product.getReorderLevel());
+            stmt.setString(7, product.getState());
+            stmt.setDate(8, product.getPurchaseDate());
+            stmt.setDate(9, product.getExpiryDate());
+            stmt.setInt(10, newVersion);
+            stmt.setString(11, product.getCode());
+            stmt.setInt(12, product.getVersion());
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            int rowsAffected = stmt.executeUpdate();
 
-            stmt.setInt(1, quantity);
-            stmt.setString(2, itemCode);
-            stmt.setInt(3, quantity);
-
-            int updated = stmt.executeUpdate();
-
-            if (updated > 0) {
-                checkSoldOut(conn, itemCode);
+            if (rowsAffected > 0) {
+                product.setVersion(newVersion);
+                return true;
             }
-
-            return updated > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
-    public List<Product> getLowStockProducts() {
+    public boolean updateProductStock(Product product) throws SQLException {
+        String query = "UPDATE items SET quantity_in_store=?, quantity_on_shelf=?, version=? " +
+                "WHERE code=? AND version=?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            int newVersion = product.getVersion() + 1;
+
+            stmt.setInt(1, product.getQuantityInStore());
+            stmt.setInt(2, product.getQuantityOnShelf());
+            stmt.setInt(3, newVersion);
+            stmt.setString(4, product.getCode());
+            stmt.setInt(5, product.getVersion());
+
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                product.setVersion(newVersion);
+                return true;
+            }
+            return false;
+        }
+    }
+
+    public boolean updateStockQuantity(String code, int newQuantity, int expectedVersion, Connection conn)
+            throws SQLException {
+        String query = "UPDATE items SET quantity_on_shelf=?, version=version+1 " +
+                "WHERE code=? AND version=?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, newQuantity);
+            stmt.setString(2, code);
+            stmt.setInt(3, expectedVersion);
+
+            return stmt.executeUpdate() > 0;
+        }
+    }
+
+    public boolean deleteProduct(String code) throws SQLException {
+        String query = "DELETE FROM items WHERE code = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, code);
+            return stmt.executeUpdate() > 0;
+        }
+    }
+
+    public List<Product> getLowStockProducts() throws SQLException {
+        String query = "SELECT * FROM items WHERE (quantity_in_store + quantity_on_shelf) <= reorder_level";
         List<Product> products = new ArrayList<>();
-        String sql = "SELECT code, name, category, price, quantity_in_store, quantity_on_shelf, " +
-                "reorder_level, state, expiry_date FROM items " +
-                "WHERE (quantity_in_store + quantity_on_shelf) < reorder_level " +
-                "AND state NOT IN ('EXPIRED', 'SOLD_OUT') " +
-                "ORDER BY (quantity_in_store + quantity_on_shelf) ASC";
 
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+             ResultSet rs = stmt.executeQuery(query)) {
 
             while (rs.next()) {
-                products.add(mapProduct(rs));
+                products.add(mapResultSetToProduct(rs));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
+
         return products;
     }
 
-    private void checkSoldOut(Connection conn, String itemCode) throws SQLException {
-        String sql = "UPDATE items SET state = 'SOLD_OUT' " +
-                "WHERE code = ? AND (quantity_in_store + quantity_on_shelf) = 0";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, itemCode);
-            stmt.executeUpdate();
-        }
+    public Connection getConnection() throws SQLException {
+        return DBConnection.getConnection();
     }
 
-    private Product mapProduct(ResultSet rs) throws SQLException {
+    private Product mapResultSetToProduct(ResultSet rs) throws SQLException {
         Product product = new Product();
-        product.setItemCode(rs.getString("code"));
+        product.setCode(rs.getString("code"));
         product.setName(rs.getString("name"));
         product.setCategory(rs.getString("category"));
         product.setPrice(rs.getDouble("price"));
@@ -202,10 +249,23 @@ public class ProductDAO {
         product.setQuantityOnShelf(rs.getInt("quantity_on_shelf"));
         product.setReorderLevel(rs.getInt("reorder_level"));
         product.setState(rs.getString("state"));
+        product.setPurchaseDate(rs.getDate("purchase_date"));
+        product.setExpiryDate(rs.getDate("expiry_date"));
+        product.setVersion(rs.getInt("version"));
 
-        Date expiryDate = rs.getDate("expiry_date");
-        if (expiryDate != null) {
-            product.setExpiryDate(expiryDate);
+        try {
+            product.setLockedBy(rs.getLong("locked_by"));
+            if (rs.wasNull()) {
+                product.setLockedBy(null);
+            }
+        } catch (SQLException e) {
+            // Column doesn't exist, ignore
+        }
+
+        try {
+            product.setLockTimestamp(rs.getTimestamp("lock_timestamp"));
+        } catch (SQLException e) {
+            // Column doesn't exist, ignore
         }
 
         return product;

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/sql/complete_database.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/sql/create_database.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/sql/latest_database.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/sql/missing-column-user.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/sql/seed_data.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/sql/update_database_10-24.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/sql/user-passwords.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/db/schema.sql" dialect="MySQL" />
     <file url="PROJECT" dialect="MySQL" />
