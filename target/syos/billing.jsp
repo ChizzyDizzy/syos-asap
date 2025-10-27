@@ -173,15 +173,14 @@
 <div class="navbar">
     <h1>💳 Billing System</h1>
     <div>
-        <% if ("ADMIN".equals(user.getRole())) { %>
-        <a href="admin-dashboard.jsp">Dashboard</a>
+        <% if ("ADMIN".equals(user.getRole().toString())) { %>
+        <a href="<%= request.getContextPath() %>/admin-dashboard.jsp">Dashboard</a>
         <% } else { %>
-        <a href="cashier-dashboard.jsp">Dashboard</a>
+        <a href="<%= request.getContextPath() %>/cashier-dashboard.jsp">Dashboard</a>
         <% } %>
-        <a href="logout">Logout</a>
+        <a href="<%= request.getContextPath() %>/logout">Logout</a>
     </div>
 </div>
-
 <div class="container">
     <div class="products-section">
         <h2>Available Products</h2>

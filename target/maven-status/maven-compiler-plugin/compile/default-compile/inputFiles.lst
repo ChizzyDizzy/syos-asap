@@ -57,6 +57,7 @@ D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\servlet\SalesServlet.j
 D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\commands\inventory\AddStockCommand.java
 D:\Work\clean coding\syos-asap\src\main\java\com\syos\infrastructure\persistence\mappers\ItemMapper.java
 D:\Work\clean coding\syos-asap\src\main\java\com\syos\domain\exceptions\InvalidStateTransitionException.java
+D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\servlet\DebugFilter.java
 D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\services\InventoryService.java
 D:\Work\clean coding\syos-asap\src\main\java\com\syos\application\services\SalesService.java
 D:\Work\clean coding\syos-asap\src\main\java\com\syos\web\dao\SaleDAO.java

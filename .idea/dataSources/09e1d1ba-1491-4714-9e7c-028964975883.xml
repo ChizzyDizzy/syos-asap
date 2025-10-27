@@ -1063,7 +1063,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <schema id="292" parent="1" name="syos_db">
       <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
       <LastIntrospectionLevel>3</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2025-10-26.13:53:22</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-10-26.17:36:46</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="293" parent="1" name="syos_new">
